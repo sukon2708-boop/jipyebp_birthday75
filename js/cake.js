@@ -1,3 +1,7 @@
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
 const cake = document.getElementById("cake");
 
 const msg = document.getElementById("msg");
@@ -58,231 +62,204 @@ const candleColors = [
    INITIAL
 ========================================================= */
 
-micBtn.style.display = "none";
+if (micBtn) {
+  micBtn.style.display = "none";
+}
 
-step2.style.display = "none";
+if (step2) {
+  step2.style.display = "none";
+}
 
-step3.style.display = "none";
+if (step3) {
+  step3.style.display = "none";
+}
 
 
 /* =========================================================
-   CLICK / TOUCH CAKE
+   CLICK CAKE
 ========================================================= */
 
-cake.addEventListener(
-  "pointerdown",
-  function(event){
+cake.addEventListener("click", function(event) {
 
-    if(hasBlown){
-      return;
-    }
+  if (hasBlown) {
+    return;
+  }
 
 
-    /*
-      ป้องกัน touch
-      ไม่ให้เกิด click ซ้ำ
-    */
-
-    event.preventDefault();
-
-
-    /* =====================================================
-       GET CAKE POSITION
-    ===================================================== */
-
-    const rect =
-      cake.getBoundingClientRect();
+  /*
+   * IMPORTANT
+   *
+   * .cake ถูก scale บนมือถือ
+   * ดังนั้น getBoundingClientRect()
+   * จะได้ขนาดหลัง scale
+   *
+   * เราจึงต้องแปลงกลับเป็น
+   * coordinate จริงของ cake 250x200
+   */
 
 
-    /*
-      เนื่องจาก .cake ถูก scale
-      บนมือถือ
-
-      getBoundingClientRect()
-      จะได้ขนาดหลัง scale
-
-      จึงต้องคำนวณ scale
-      กลับไปเป็นขนาดจริง
-    */
-
-    const scaleX =
-      rect.width /
-      cake.offsetWidth;
+  const rect =
+    cake.getBoundingClientRect();
 
 
-    const scaleY =
-      rect.height /
-      cake.offsetHeight;
+  const baseWidth = 250;
+
+  const baseHeight = 200;
 
 
-    /*
-      ตำแหน่งที่กดบนหน้าจอ
-      แปลงกลับเป็นตำแหน่งภายใน cake
-    */
+  const scaleX =
+    rect.width / baseWidth;
 
-    let x =
-      (
-        event.clientX -
-        rect.left
-      ) / scaleX;
+  const scaleY =
+    rect.height / baseHeight;
 
 
-    let y =
-      (
-        event.clientY -
-        rect.top
-      ) / scaleY;
+  let x =
+    (event.clientX - rect.left)
+    / scaleX;
 
 
-    /* =====================================================
-       ตรวจตำแหน่งที่อนุญาต
-    ===================================================== */
-
-    /*
-      cake จริงมีขนาด:
-
-      width  = 250px
-      height = 200px
-
-      ให้ปักเทียนบริเวณ
-      ส่วนบนของเค้ก
-    */
-
-    if(
-      y < 8 ||
-      y > 100
-    ){
-
-      return;
-
-    }
+  let y =
+    (event.clientY - rect.top)
+    / scaleY;
 
 
-    /* =====================================================
-       จำกัดตำแหน่ง X
-    ===================================================== */
+  /*
+   * กันคลิกนอกตัว cake
+   */
 
-    x =
-      Math.max(
-        15,
-        Math.min(
-          235,
-          x
-        )
-      );
-
-
-    /* =====================================================
-       จำกัดตำแหน่ง Y
-    ===================================================== */
-
-    y =
-      Math.max(
-        45,
-        Math.min(
-          92,
-          y
-        )
-      );
+  if (
+    x < 0 ||
+    x > baseWidth ||
+    y < 0 ||
+    y > baseHeight
+  ) {
+    return;
+  }
 
 
-    /* =====================================================
-       CREATE CANDLE
-    ===================================================== */
+  /*
+   * ต้องคลิกบริเวณด้านบนของเค้ก
+   *
+   * แต่ไม่ล็อกแค่ 15-80 แบบของเดิม
+   * เพราะมือถือ scale ทำให้ตำแหน่งเพี้ยน
+   *
+   * เปิดช่วงกว้างขึ้น
+   */
 
-    const candle =
-      document.createElement("div");
-
-
-    candle.className =
-      "candle " +
-      candleColors[
-        candleCount %
-        candleColors.length
-      ];
+  if (y > 105) {
+    return;
+  }
 
 
-    candle.style.left =
-      x + "px";
+  /*
+   * จำกัดไม่ให้เทียนชิดขอบเกินไป
+   */
 
-
-    candle.style.top =
-      y + "px";
-
-
-    /*
-      เพิ่มจำนวนเทียน
-    */
-
-    candleCount++;
-
-
-    /*
-      ไม่ให้การแตะเทียน
-      ส่ง event กลับไปสร้างเทียนซ้ำ
-    */
-
-    candle.addEventListener(
-      "pointerdown",
-      function(e){
-
-        e.stopPropagation();
-
-      }
+  x =
+    Math.max(
+      20,
+      Math.min(
+        230,
+        x
+      )
     );
 
 
-    /* =====================================================
-       CREATE FLAME
-    ===================================================== */
+  /*
+   * ให้เทียนปักอยู่บนหน้าครีม
+   *
+   * ไม่ว่าผู้ใช้จะคลิกตรงไหน
+   * จะใช้ตำแหน่ง Y ที่เหมาะสม
+   */
 
-    const flame =
-      document.createElement("div");
-
-
-    flame.className =
-      "flame";
-
-
-    candle.appendChild(flame);
-
-
-    /* =====================================================
-       ADD CANDLE
-    ===================================================== */
-
-    cake.appendChild(candle);
+  y =
+    Math.max(
+      18,
+      Math.min(
+        76,
+        y
+      )
+    );
 
 
-    /*
-      เก็บ flame
-      ไว้ใช้ตอนเป่า
-    */
+  /* =======================================================
+     CREATE CANDLE
+  ======================================================= */
 
-    flames.push(flame);
-
-
-    /* =====================================================
-       CHANGE STEP
-    ===================================================== */
-
-    step1.style.display =
-      "none";
+  const candle =
+    document.createElement("div");
 
 
-    step2.style.display =
-      "block";
+  candle.className =
+    "candle " +
+    candleColors[
+      candleCount %
+      candleColors.length
+    ];
 
 
-    msg.textContent =
-      "ปักเทียนแล้ว! กดอนุญาตไมโครโฟนเพื่อเป่า";
+  candle.style.left =
+    x + "px";
 
 
-    micBtn.style.display =
-      "inline-flex";
+  candle.style.top =
+    y + "px";
 
-  }
-);
+
+  /* =======================================================
+     CREATE FLAME
+  ======================================================= */
+
+  const flame =
+    document.createElement("div");
+
+
+  flame.className =
+    "flame";
+
+
+  candle.appendChild(flame);
+
+
+  /*
+   * เพิ่มเทียนเข้า cake
+   */
+
+  cake.appendChild(candle);
+
+
+  /*
+   * เก็บ flame
+   * เอาไว้ดับตอนเป่า
+   */
+
+  flames.push(flame);
+
+
+  candleCount++;
+
+
+  /* =======================================================
+     CHANGE STEP
+  ======================================================= */
+
+  step1.style.display =
+    "none";
+
+
+  step2.style.display =
+    "block";
+
+
+  msg.textContent =
+    "ปักเทียนแล้ว! กดอนุญาตไมโครโฟนเพื่อเป่า";
+
+
+  micBtn.style.display =
+    "inline-flex";
+
+});
 
 
 /* =========================================================
@@ -299,15 +276,13 @@ micBtn.addEventListener(
    START MICROPHONE
 ========================================================= */
 
-async function startMicrophone(){
+async function startMicrophone() {
 
-  if(
+  if (
     detecting ||
     hasBlown
-  ){
-
+  ) {
     return;
-
   }
 
 
@@ -322,16 +297,12 @@ async function startMicrophone(){
     "กำลังเปิดไมโครโฟน...";
 
 
-  try{
+  try {
 
-    /* =====================================================
-       CHECK MICROPHONE
-    ===================================================== */
-
-    if(
+    if (
       !navigator.mediaDevices ||
       !navigator.mediaDevices.getUserMedia
-    ){
+    ) {
 
       throw new Error(
         "Microphone API not supported"
@@ -340,10 +311,6 @@ async function startMicrophone(){
     }
 
 
-    /* =====================================================
-       REQUEST MICROPHONE
-    ===================================================== */
-
     const stream =
       await navigator.mediaDevices
       .getUserMedia({
@@ -351,13 +318,18 @@ async function startMicrophone(){
       });
 
 
-    /* =====================================================
-       AUDIO CONTEXT
-    ===================================================== */
-
     const AudioContext =
       window.AudioContext ||
       window.webkitAudioContext;
+
+
+    if (!AudioContext) {
+
+      throw new Error(
+        "AudioContext not supported"
+      );
+
+    }
 
 
     const audioContext =
@@ -367,20 +339,12 @@ async function startMicrophone(){
     await audioContext.resume();
 
 
-    /* =====================================================
-       AUDIO SOURCE
-    ===================================================== */
-
     const source =
       audioContext
       .createMediaStreamSource(
         stream
       );
 
-
-    /* =====================================================
-       ANALYSER
-    ===================================================== */
 
     const analyser =
       audioContext
@@ -392,7 +356,7 @@ async function startMicrophone(){
 
 
     analyser.smoothingTimeConstant =
-      .15;
+      0.15;
 
 
     source.connect(
@@ -406,35 +370,28 @@ async function startMicrophone(){
       );
 
 
-    /* =====================================================
-       START DETECTION
-    ===================================================== */
+    setTimeout(function() {
 
-    setTimeout(
-      function(){
-
-        if(hasBlown){
-          return;
-        }
+      if (hasBlown) {
+        return;
+      }
 
 
-        msg.textContent =
-          "เป่าเทียนได้เลย!";
+      msg.textContent =
+        "เป่าเทียนได้เลย!";
 
 
-        detectBlow(
-          analyser,
-          data,
-          stream,
-          audioContext
-        );
+      detectBlow(
+        analyser,
+        data,
+        stream,
+        audioContext
+      );
 
-      },
-      1000
-    );
+    }, 700);
 
-  }
-  catch(error){
+
+  } catch (error) {
 
     console.error(
       "Microphone error:",
@@ -466,9 +423,9 @@ function detectBlow(
   data,
   stream,
   audioContext
-){
+) {
 
-  if(hasBlown){
+  if (hasBlown) {
     return;
   }
 
@@ -481,11 +438,11 @@ function detectBlow(
   let total = 0;
 
 
-  for(
+  for (
     let i = 0;
     i < data.length;
     i++
-  ){
+  ) {
 
     total += data[i];
 
@@ -493,23 +450,20 @@ function detectBlow(
 
 
   const volume =
-    total /
-    data.length;
+    total / data.length;
 
 
   /*
-    ระดับเสียงที่ใช้ตรวจ
-    การเป่า
-  */
+   * ค่าประมาณสำหรับมือถือ
+   */
 
-  const BLOW_THRESHOLD =
-    45;
+  const BLOW_THRESHOLD = 35;
 
 
-  if(
+  if (
     volume >
     BLOW_THRESHOLD
-  ){
+  ) {
 
     finishBlow(
       stream,
@@ -517,12 +471,11 @@ function detectBlow(
     );
 
     return;
-
   }
 
 
   requestAnimationFrame(
-    function(){
+    function() {
 
       detectBlow(
         analyser,
@@ -544,9 +497,9 @@ function detectBlow(
 function finishBlow(
   stream,
   audioContext
-){
+) {
 
-  if(hasBlown){
+  if (hasBlown) {
     return;
   }
 
@@ -556,12 +509,12 @@ function finishBlow(
   detecting = false;
 
 
-  /* =====================================================
-     ดับไฟเทียน
-  ===================================================== */
+  /* =======================================================
+     ดับเทียน
+  ======================================================= */
 
   flames.forEach(
-    function(flame){
+    function(flame) {
 
       flame.style.opacity =
         "0";
@@ -573,55 +526,55 @@ function finishBlow(
   );
 
 
-  /* =====================================================
+  /* =======================================================
      TITLE
-  ===================================================== */
+  ======================================================= */
 
   titleText.textContent =
     "";
 
 
-  /* =====================================================
+  /* =======================================================
      HIDE STEP 2
-  ===================================================== */
+  ======================================================= */
 
   step2.style.display =
     "none";
 
 
-  /* =====================================================
+  /* =======================================================
      SHOW STEP 3
-  ===================================================== */
+  ======================================================= */
 
   step3.style.display =
     "block";
 
 
-  /* =====================================================
+  /* =======================================================
      FIREWORK
-  ===================================================== */
+  ======================================================= */
 
   pyro.style.display =
     "block";
 
 
-  /* =====================================================
+  /* =======================================================
      STARS
-  ===================================================== */
+  ======================================================= */
 
   spawnStars();
 
 
-  /* =====================================================
+  /* =======================================================
      CLOSE MICROPHONE
-  ===================================================== */
+  ======================================================= */
 
-  if(stream){
+  if (stream) {
 
     stream
       .getTracks()
       .forEach(
-        function(track){
+        function(track) {
 
           track.stop();
 
@@ -631,11 +584,10 @@ function finishBlow(
   }
 
 
-  if(
+  if (
     audioContext &&
-    audioContext.state !==
-      "closed"
-  ){
+    audioContext.state !== "closed"
+  ) {
 
     audioContext.close();
 
@@ -648,7 +600,7 @@ function finishBlow(
    STARS
 ========================================================= */
 
-function spawnStars(){
+function spawnStars() {
 
   const STAR_COUNT =
     100;
@@ -658,14 +610,16 @@ function spawnStars(){
     window.innerWidth;
 
 
-  for(
+  for (
     let i = 0;
     i < STAR_COUNT;
     i++
-  ){
+  ) {
 
     const img =
-      document.createElement("img");
+      document.createElement(
+        "img"
+      );
 
 
     const starNum =
@@ -690,16 +644,14 @@ function spawnStars(){
 
 
     img.style.left =
-      Math.random() *
-      vw +
+      Math.random() * vw +
       "px";
 
 
     img.style.setProperty(
       "--drift1",
       (
-        Math.random() *
-        240 -
+        Math.random() * 240 -
         120
       ) + "px"
     );
@@ -708,8 +660,7 @@ function spawnStars(){
     img.style.setProperty(
       "--drift2",
       (
-        Math.random() *
-        360 -
+        Math.random() * 360 -
         180
       ) + "px"
     );
@@ -718,8 +669,7 @@ function spawnStars(){
     img.style.setProperty(
       "--drift3",
       (
-        Math.random() *
-        480 -
+        Math.random() * 480 -
         240
       ) + "px"
     );
@@ -728,8 +678,7 @@ function spawnStars(){
     img.style.setProperty(
       "--drift4",
       (
-        Math.random() *
-        600 -
+        Math.random() * 600 -
         300
       ) + "px"
     );
@@ -758,15 +707,14 @@ function spawnStars(){
 
 
     setTimeout(
-      function(){
+      function() {
 
         img.remove();
 
       },
-      (
-        duration +
-        delay
-      ) * 1000 + 1000
+      (duration + delay) *
+      1000 +
+      1000
     );
 
   }
