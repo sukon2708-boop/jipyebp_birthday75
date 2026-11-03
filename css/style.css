@@ -2591,7 +2591,7 @@ body:has(.cake-stage) .cake-stage{
   width: min(340px, 78vw);
 
   /* เพิ่มพื้นที่ด้านล่างของเค้ก */
-  height: 295px;
+  height: 320px;
 
   margin-top: 0;
   margin-bottom: 4px;
