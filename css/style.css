@@ -2583,3 +2583,135 @@ body:has(.cake-stage) #step3 .button-area{
   }
 
 }
+/* =========================================================
+   FIRST PAGE ONLY — ปรับสัดส่วนการ์ด + ระยะเค้ก
+========================================================= */
+
+/* =========================================================
+   ระยะระหว่างเค้กกับการ์ด
+========================================================= */
+
+body:has(.cake-stage) .cake-stage{
+  margin-top: -4px;
+  margin-bottom: 12px;
+}
+
+
+/* =========================================================
+   STEP 1 CARD — ขยายให้ดูสมส่วนขึ้น
+========================================================= */
+
+body:has(.cake-stage) #step1{
+  padding-top: 24px;
+  padding-bottom: 24px;
+
+  min-height: 150px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 0;
+}
+
+
+/* badge */
+body:has(.cake-stage) #step1 .badge{
+  margin-top: 0;
+  margin-bottom: 8px;
+
+  padding: 9px 20px;
+}
+
+
+/* ข้อความด้านล่าง */
+body:has(.cake-stage) #step1 .subtle{
+  margin-top: 4px;
+  margin-bottom: 0;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   STEP 2 / STEP 3 ให้ขนาดสมดุลกับ STEP 1
+========================================================= */
+
+body:has(.cake-stage) #step2,
+body:has(.cake-stage) #step3{
+  padding-top: 22px;
+  padding-bottom: 22px;
+
+  min-height: 145px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width:720px){
+
+  body:has(.cake-stage) .cake-stage{
+    margin-top: -4px;
+    margin-bottom: 12px;
+  }
+
+
+  body:has(.cake-stage) #step1{
+    min-height: 150px;
+
+    padding-top: 22px;
+    padding-bottom: 22px;
+  }
+
+
+  body:has(.cake-stage) #step1 .badge{
+    margin-bottom: 8px;
+
+    padding: 9px 18px;
+  }
+
+
+  body:has(.cake-stage) #step2,
+  body:has(.cake-stage) #step3{
+    min-height: 145px;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media (max-width:420px){
+
+  body:has(.cake-stage) .cake-stage{
+    margin-top: -6px;
+    margin-bottom: 14px;
+  }
+
+
+  body:has(.cake-stage) #step1{
+    min-height: 145px;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+
+  body:has(.cake-stage) #step2,
+  body:has(.cake-stage) #step3{
+    min-height: 140px;
+
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+}
