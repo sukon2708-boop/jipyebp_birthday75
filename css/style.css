@@ -1850,3 +1850,69 @@ a.btn.secondary{
   }
 
 }
+/* =========================================================
+   หน้าแรก — จัด UI ให้อยู่กึ่งกลางหน้าจอเท่านั้น
+   ไม่กระทบหน้าอื่น
+========================================================= */
+
+/* จัดเฉพาะหน้าแรกที่มี cake-stage */
+body:has(.cake-stage) .container{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* จัดเนื้อหาภายในหน้าแรกให้อยู่กึ่งกลาง */
+body:has(.cake-stage) .shell{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ให้ส่วนเค้กอยู่กึ่งกลางจริง */
+body:has(.cake-stage) .cake-stage{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* การ์ด Step 1 / Step 2 / Step 3 อยู่กึ่งกลาง */
+body:has(.cake-stage) .big-card{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/* ปุ่มภายในหน้าแรกอยู่กึ่งกลาง */
+body:has(.cake-stage) .button-area{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* มือถือ — ยังคงจัดกึ่งกลาง */
+@media (max-width:720px){
+
+  body:has(.cake-stage) .container{
+    min-height: 100vh;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  body:has(.cake-stage) .shell{
+    width: 100%;
+  }
+
+}
+
+/* จอเตี้ย — ป้องกัน UI ถูกดันจนล้น */
+@media (max-height:680px){
+
+  body:has(.cake-stage) .container{
+    min-height: 100vh;
+    align-items: center;
+  }
+
+}
