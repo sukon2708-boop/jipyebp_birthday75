@@ -2584,180 +2584,35 @@ body:has(.cake-stage) #step3 .button-area{
 
 }
 /* =========================================================
-   FIRST PAGE ONLY — ปรับระยะ + เพิ่มความสูงการ์ด
-========================================================= */
-
-body:has(.cake-stage) .shell{
-  padding-top: 20px;
-  padding-bottom: 20px;
-  gap: 0;
-}
-
-
-/* =========================================================
-   TITLE
-========================================================= */
-
-body:has(.cake-stage) #titleText{
-  margin-top: 0;
-  margin-bottom: 2px;
-  line-height: 1.35;
-}
-
-
-/* =========================================================
-   CAKE
+   CAKE — เพิ่มระยะห่างจากการ์ดด้านล่าง
 ========================================================= */
 
 body:has(.cake-stage) .cake-stage{
+  width: min(340px, 78vw);
+
+  /* เพิ่มพื้นที่ด้านล่างของเค้ก */
+  height: 295px;
+
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 4px;
+
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
 }
-
-
-/* =========================================================
-   STEP CARDS — เพิ่มความสูง
-========================================================= */
-
-body:has(.cake-stage) #step1,
-body:has(.cake-stage) #step2,
-body:has(.cake-stage) #step3{
-  padding-top: 28px;
-  padding-bottom: 28px;
-
-  gap: 0;
-}
-
-
-/* =========================================================
-   STEP 1
-========================================================= */
-
-body:has(.cake-stage) #step1 .badge{
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-body:has(.cake-stage) #step1 .subtle{
-  margin-top: 8px;
-  margin-bottom: 0;
-}
-
-
-/* =========================================================
-   STEP 2
-========================================================= */
-
-body:has(.cake-stage) #step2 h2{
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-body:has(.cake-stage) #step2 .subtle{
-  margin-top: 6px;
-  margin-bottom: 8px;
-  line-height: 1.6;
-}
-
-body:has(.cake-stage) #step2 .button-area{
-  margin-top: 12px;
-}
-
-
-/* =========================================================
-   STEP 3
-========================================================= */
-
-body:has(.cake-stage) #step3 h2{
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-body:has(.cake-stage) #step3 .subtle{
-  margin-top: 6px;
-  margin-bottom: 8px;
-}
-
-body:has(.cake-stage) #step3 .button-area{
-  margin-top: 12px;
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
 @media (max-width:720px){
 
-  body:has(.cake-stage) .shell{
-    padding-top: 18px;
-    padding-bottom: 18px;
-  }
-
-  body:has(.cake-stage) #titleText{
-    margin-bottom: 2px;
-  }
-
   body:has(.cake-stage) .cake-stage{
+    width: min(320px, 90vw);
+
+    /* จาก 250 → 275 */
+    height: 275px;
+
     margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  /* เพิ่มความสูงการ์ดบนมือถือ */
-  body:has(.cake-stage) #step1,
-  body:has(.cake-stage) #step2,
-  body:has(.cake-stage) #step3{
-    padding-top: 24px;
-    padding-bottom: 24px;
-  }
-
-  body:has(.cake-stage) #step1 .badge{
-    margin-bottom: 10px;
-  }
-
-  body:has(.cake-stage) #step1 .subtle{
-    margin-top: 8px;
-  }
-
-  body:has(.cake-stage) #step2 h2,
-  body:has(.cake-stage) #step3 h2{
-    margin-bottom: 8px;
-  }
-
-  body:has(.cake-stage) #step2 .subtle,
-  body:has(.cake-stage) #step3 .subtle{
-    margin-top: 4px;
-    margin-bottom: 6px;
-  }
-
-  body:has(.cake-stage) #step2 .button-area,
-  body:has(.cake-stage) #step3 .button-area{
-    margin-top: 10px;
-  }
-}
-
-
-/* =========================================================
-   SMALL PHONE
-========================================================= */
-
-@media (max-width:420px){
-
-  body:has(.cake-stage) .shell{
-    padding-top: 14px;
-    padding-bottom: 14px;
-  }
-
-  body:has(.cake-stage) .cake-stage{
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  body:has(.cake-stage) #step1,
-  body:has(.cake-stage) #step2,
-  body:has(.cake-stage) #step3{
-    padding-top: 22px;
-    padding-bottom: 22px;
+    margin-bottom: 4px;
   }
 
 }
