@@ -2255,3 +2255,149 @@ body:has(.cake-stage) .button-area{
   }
 
 }
+/* =========================================================
+   FIRST PAGE ONLY — FIX STEP 1 / STEP 2 / STEP 3
+   ไม่กระทบหน้าอื่น
+========================================================= */
+
+/* หน้าแรกเท่านั้น */
+body:has(.cake-stage) #step1,
+body:has(.cake-stage) #step2,
+body:has(.cake-stage) #step3{
+  width: min(720px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+
+  text-align: center;
+
+  /* สำคัญมาก — ป้องกัน display:flex จาก JS ทำให้ข้อความเรียงแนวนอน */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* =========================================================
+   STEP 2
+========================================================= */
+
+body:has(.cake-stage) #step2 h2{
+  width: 100%;
+  margin: 0 0 12px;
+
+  text-align: center;
+
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+
+body:has(.cake-stage) #step2 .subtle{
+  width: 100%;
+  margin: 10px 0;
+
+  text-align: center;
+
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+
+/* =========================================================
+   BUTTON AREA
+========================================================= */
+
+body:has(.cake-stage) #step2 .button-area,
+body:has(.cake-stage) #step3 .button-area{
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: row;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 12px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width:720px){
+
+  body:has(.cake-stage) #step1,
+  body:has(.cake-stage) #step2,
+  body:has(.cake-stage) #step3{
+    width: 100%;
+
+    padding: 18px;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+  }
+
+
+  body:has(.cake-stage) #step2 h2{
+    font-size: 20px;
+
+    width: 100%;
+
+    margin-bottom: 10px;
+  }
+
+
+  body:has(.cake-stage) #step2 .subtle{
+    width: 100%;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    margin: 8px 0;
+  }
+
+
+  body:has(.cake-stage) #step2 .button-area{
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 12px;
+  }
+
+
+  body:has(.cake-stage) #step2 .btn{
+    max-width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONE
+========================================================= */
+
+@media (max-width:420px){
+
+  body:has(.cake-stage) #step2 h2{
+    font-size: 18px;
+  }
+
+
+  body:has(.cake-stage) #step2 .subtle{
+    font-size: 13px;
+  }
+
+}
