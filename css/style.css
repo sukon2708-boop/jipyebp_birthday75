@@ -2584,67 +2584,102 @@ body:has(.cake-stage) #step3 .button-area{
 
 }
 /* =========================================================
-   FIRST PAGE ONLY — ปรับสัดส่วนการ์ด + ระยะเค้ก
+   FIRST PAGE ONLY — ปรับระยะ + เพิ่มความสูงการ์ด
 ========================================================= */
 
-/* =========================================================
-   ระยะระหว่างเค้กกับการ์ด
-========================================================= */
-
-body:has(.cake-stage) .cake-stage{
-  margin-top: -4px;
-  margin-bottom: 12px;
+body:has(.cake-stage) .shell{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  gap: 0;
 }
 
 
 /* =========================================================
-   STEP 1 CARD — ขยายให้ดูสมส่วนขึ้น
+   TITLE
 ========================================================= */
 
-body:has(.cake-stage) #step1{
-  padding-top: 24px;
-  padding-bottom: 24px;
+body:has(.cake-stage) #titleText{
+  margin-top: 0;
+  margin-bottom: 2px;
+  line-height: 1.35;
+}
 
-  min-height: 150px;
 
-  display: flex;
-  flex-direction: column;
+/* =========================================================
+   CAKE
+========================================================= */
 
-  justify-content: center;
-  align-items: center;
+body:has(.cake-stage) .cake-stage{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+
+/* =========================================================
+   STEP CARDS — เพิ่มความสูง
+========================================================= */
+
+body:has(.cake-stage) #step1,
+body:has(.cake-stage) #step2,
+body:has(.cake-stage) #step3{
+  padding-top: 28px;
+  padding-bottom: 28px;
 
   gap: 0;
 }
 
 
-/* badge */
+/* =========================================================
+   STEP 1
+========================================================= */
+
 body:has(.cake-stage) #step1 .badge{
   margin-top: 0;
-  margin-bottom: 8px;
-
-  padding: 9px 20px;
+  margin-bottom: 10px;
 }
 
-
-/* ข้อความด้านล่าง */
 body:has(.cake-stage) #step1 .subtle{
-  margin-top: 4px;
+  margin-top: 8px;
   margin-bottom: 0;
-
-  line-height: 1.7;
 }
 
 
 /* =========================================================
-   STEP 2 / STEP 3 ให้ขนาดสมดุลกับ STEP 1
+   STEP 2
 ========================================================= */
 
-body:has(.cake-stage) #step2,
-body:has(.cake-stage) #step3{
-  padding-top: 22px;
-  padding-bottom: 22px;
+body:has(.cake-stage) #step2 h2{
+  margin-top: 0;
+  margin-bottom: 10px;
+}
 
-  min-height: 145px;
+body:has(.cake-stage) #step2 .subtle{
+  margin-top: 6px;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+body:has(.cake-stage) #step2 .button-area{
+  margin-top: 12px;
+}
+
+
+/* =========================================================
+   STEP 3
+========================================================= */
+
+body:has(.cake-stage) #step3 h2{
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+body:has(.cake-stage) #step3 .subtle{
+  margin-top: 6px;
+  margin-bottom: 8px;
+}
+
+body:has(.cake-stage) #step3 .button-area{
+  margin-top: 12px;
 }
 
 
@@ -2654,35 +2689,51 @@ body:has(.cake-stage) #step3{
 
 @media (max-width:720px){
 
+  body:has(.cake-stage) .shell{
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  body:has(.cake-stage) #titleText{
+    margin-bottom: 2px;
+  }
+
   body:has(.cake-stage) .cake-stage{
-    margin-top: -4px;
-    margin-bottom: 12px;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
-
-  body:has(.cake-stage) #step1{
-    min-height: 150px;
-
-    padding-top: 22px;
-    padding-bottom: 22px;
-  }
-
-
-  body:has(.cake-stage) #step1 .badge{
-    margin-bottom: 8px;
-
-    padding: 9px 18px;
-  }
-
-
+  /* เพิ่มความสูงการ์ดบนมือถือ */
+  body:has(.cake-stage) #step1,
   body:has(.cake-stage) #step2,
   body:has(.cake-stage) #step3{
-    min-height: 145px;
-
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
 
+  body:has(.cake-stage) #step1 .badge{
+    margin-bottom: 10px;
+  }
+
+  body:has(.cake-stage) #step1 .subtle{
+    margin-top: 8px;
+  }
+
+  body:has(.cake-stage) #step2 h2,
+  body:has(.cake-stage) #step3 h2{
+    margin-bottom: 8px;
+  }
+
+  body:has(.cake-stage) #step2 .subtle,
+  body:has(.cake-stage) #step3 .subtle{
+    margin-top: 4px;
+    margin-bottom: 6px;
+  }
+
+  body:has(.cake-stage) #step2 .button-area,
+  body:has(.cake-stage) #step3 .button-area{
+    margin-top: 10px;
+  }
 }
 
 
@@ -2692,26 +2743,21 @@ body:has(.cake-stage) #step3{
 
 @media (max-width:420px){
 
+  body:has(.cake-stage) .shell{
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
   body:has(.cake-stage) .cake-stage{
-    margin-top: -6px;
-    margin-bottom: 14px;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
-
-  body:has(.cake-stage) #step1{
-    min-height: 145px;
-
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-
-
+  body:has(.cake-stage) #step1,
   body:has(.cake-stage) #step2,
   body:has(.cake-stage) #step3{
-    min-height: 140px;
-
-    padding-top: 18px;
-    padding-bottom: 18px;
+    padding-top: 22px;
+    padding-bottom: 22px;
   }
 
 }
