@@ -1241,66 +1241,1855 @@ a.btn.secondary{
 }
 
 
-/* =====================================================
-   MOBILE LAYOUT FIX
-   แก้พื้นที่ว่างเกินบนมือถือ โดยคงธีม สี ฟอนต์ และเอฟเฟกต์เดิม
-   ===================================================== */
-@media (max-width: 720px) {
-  html,
-  body {
-    height: auto;
-    min-height: 100%;
-  }
 
-  body {
-    background-attachment: scroll;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Fahkwang:wght@300;400;500;600;700&display=swap');
 
-  .container {
-    height: auto;
-    min-height: 0;
-    align-items: flex-start;
-    padding: 16px 12px;
-  }
 
-  .shell {
-    height: auto !important;
-    min-height: 0 !important;
-    padding: 22px 14px 24px;
-  }
+/* =========================================================
+   ROOT
+========================================================= */
 
-  .big-card {
-    height: auto;
-    min-height: 0;
-    padding: 18px 14px;
-  }
+:root{
 
-  .cake-stage {
-    width: min(300px, 82vw);
-    margin: 10px auto 8px;
-  }
+  --pink-1:#fdf5f5;
+  --pink-2:#f9e0e0;
 
-  .pink-panel {
-    width: 100%;
-    padding: 18px 14px;
-  }
+  --card:#EDBFBF;
+  --card-dark:#FFB3C6;
+
+  --white:#ffffff;
+
+  --text-dark:#3E3435;
+
+  --shadow:
+    0 22px 48px rgba(234,127,160,.34);
+
 }
 
-/* จอมือถือขนาดเล็ก */
-@media (max-width: 420px) {
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+
+  box-sizing:border-box;
+
+  font-family:
+    "Fahkwang",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif !important;
+
+  -webkit-tap-highlight-color:transparent;
+
+}
+
+
+html,
+body{
+
+  width:100%;
+
+  min-height:100%;
+
+  margin:0;
+
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+body{
+
+  position:relative;
+
+  min-height:100svh;
+
+  overflow-x:hidden;
+  overflow-y:auto;
+
+  color:var(--text-dark);
+
+  letter-spacing:.3px;
+
+  line-height:1.8;
+
+  background:
+
+    radial-gradient(
+      ellipse 75% 60% at 50% 50%,
+      #ffb6c5 0%,
+      rgba(255,182,197,.85) 25%,
+      rgba(255,202,211,.60) 45%,
+      rgba(255,225,230,.35) 65%,
+      transparent 85%
+    ),
+
+    radial-gradient(
+      ellipse 45% 70% at 0% 50%,
+      rgba(255,215,222,.45) 0%,
+      transparent 75%
+    ),
+
+    radial-gradient(
+      ellipse 45% 70% at 100% 50%,
+      rgba(255,215,222,.40) 0%,
+      transparent 75%
+    ),
+
+    radial-gradient(
+      ellipse 80% 35% at 50% 0%,
+      #fff8f1 0%,
+      rgba(255,248,241,.75) 50%,
+      transparent 100%
+    ),
+
+    radial-gradient(
+      ellipse 80% 35% at 50% 100%,
+      #fff8f1 0%,
+      rgba(255,248,241,.75) 50%,
+      transparent 100%
+    ),
+
+    linear-gradient(
+      180deg,
+      #fff8f2 0%,
+      #ffedf0 35%,
+      #ffe3e8 50%,
+      #ffedf0 70%,
+      #fff8f2 100%
+    );
+
+  background-attachment:fixed;
+
+  background-size:cover;
+
+}
+
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.container{
+
+  min-height:100svh;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:40px 18px;
+
+}
+
+
+.shell{
+
+  width:min(980px,100%);
+
+  background:
+    rgba(255,255,255,.45);
+
+  backdrop-filter:blur(8px);
+
+  border:
+    1px solid rgba(255,255,255,.6);
+
+  border-radius:22px;
+
+  padding:36px 24px 44px;
+
+}
+
+
+.center{
+  text-align:center;
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+h1{
+
+  font-size:34px;
+
+  margin:0 0 12px;
+
+}
+
+
+h2{
+
+  font-size:24px;
+
+  margin:0 0 12px;
+
+  font-weight:600;
+
+}
+
+
+p{
+
+  margin:10px 0;
+
+}
+
+
+.subtle{
+
+  opacity:.9;
+
+}
+
+
+/* =========================================================
+   BIG CARD
+========================================================= */
+
+.big-card{
+  width:min(720px,100%);
+
+  margin:0 auto;
+
+  padding:24px 26px;
+
+  border-radius:30px;
+
+  background:
+    rgba(255,255,255,.65);
+
+  box-shadow:
+    var(--shadow);
+
+  position:relative;
+
+  z-index:20;
+}
+
+
+/* ข้อความในการ์ด */
+.big-card p{
+  margin:8px 0;
+}
+
+
+/* ระยะหัวข้อกับข้อความ */
+.big-card h2{
+  margin:0 0 8px;
+}
+
+
+/* badge */
+.badge{
+  margin:0 auto 10px;
+}
+@media (max-width:720px){
+
+  .container{
+    padding:
+      20px 16px;
+  }
+
+  .shell{
+    padding:
+      24px 16px 30px;
+  }
+
+  #titleText{
+    margin-bottom:4px;
+  }
+
+  .cake-stage{
+    width:min(320px,90vw);
+
+    height:245px;
+
+    margin:
+      8px auto 12px;
+  }
+
+  .cake{
+    transform:scale(.86);
+
+    margin-top:-82px;
+  }
+
+  .cake:hover{
+    transform:scale(.86);
+  }
+
+  .big-card{
+    padding:
+      20px 16px;
+
+    border-radius:24px;
+  }
+
+}
+@media (max-width:420px){
+
+  .cake-stage{
+    width:290px;
+
+    height:225px;
+
+    margin:
+      5px auto 10px;
+  }
+
+  .cake{
+    transform:scale(.76);
+
+    margin-top:-82px;
+  }
+
+  .cake:hover{
+    transform:scale(.76);
+  }
+
+  .big-card{
+    padding:
+      18px 14px;
+  }
+
+  .badge{
+    padding:
+      7px 14px;
+
+    font-size:13px;
+  }
+
+  .subtle{
+    font-size:13px;
+  }
+
+}
+
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.badge{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  padding:8px 16px;
+
+  background:
+    rgba(255,255,255,.88);
+
+  border:
+    1px solid rgba(242,109,155,.35);
+
+  border-radius:999px;
+
+  color:#c24a6f;
+
+  font-weight:700;
+
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.btn{
+
+  position:relative;
+
+  overflow:hidden;
+
+  border:0;
+
+  padding:15px 20px;
+
+  border-radius:800px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f26d9b,
+      #f7a3be
+    );
+
+  color:#fff;
+
+  font-weight:600;
+
+  font-size:14px;
+
+  line-height:1.2;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 8px 16px rgba(242,109,155,.25);
+
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease,
+    filter .18s ease;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  text-decoration:none;
+
+}
+
+
+.btn:hover{
+
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    0 14px 28px rgba(242,109,155,.38);
+
+  filter:brightness(1.05);
+
+}
+
+
+.btn:active{
+
+  transform:
+    scale(.96);
+
+}
+
+
+.btn.secondary{
+
+  background:#fff;
+
+  color:#c24a6f;
+
+  border:
+    2px solid #f26d9b;
+
+}
+
+
+.btn.secondary:hover{
+
+  color:#c24a6f;
+
+}
+
+
+a.btn,
+a.btn:visited,
+a.btn:hover,
+a.btn:active{
+
+  text-decoration:none;
+
+}
+
+
+/* =========================================================
+   SHIMMER
+========================================================= */
+
+.btn::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent 35%,
+      rgba(255,255,255,.45),
+      transparent 65%
+    );
+
+  opacity:0;
+
+  transform:
+    translateX(-120%);
+
+}
+
+
+.btn:hover::after{
+
+  animation:
+    shimmer .85s ease;
+
+}
+
+
+@keyframes shimmer{
+
+  from{
+
+    opacity:0;
+
+    transform:
+      translateX(-120%);
+
+  }
+
+  20%{
+    opacity:.65;
+  }
+
+  to{
+
+    opacity:0;
+
+    transform:
+      translateX(120%);
+
+  }
+
+}
+
+
+/* =========================================================
+   CAKE STAGE
+========================================================= */
+
+.cake-stage{
+  width:min(340px,78vw);
+  height:270px;
+
+  margin:14px auto 18px;
+
+  position:relative;
+
+  display:grid;
+  place-items:center;
+
+  perspective:900px;
+
+  overflow:visible;
+}
+
+
+/* =========================================================
+   CAKE
+========================================================= */
+
+.cake{
+  position:absolute;
+
+  width:250px;
+  height:200px;
+
+  top:50%;
+  left:50%;
+
+  margin-top:-82px;
+  margin-left:-125px;
+
+  z-index:10;
+
+  cursor:pointer;
+
+  filter:
+    drop-shadow(
+      0 18px 18px rgba(0,0,0,.25)
+    );
+
+  transition:
+    transform .2s ease;
+}
+
+.cake:hover{
+  transform:scale(1.015);
+}
+
+.cake > *{
+  position:absolute;
+}
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Fahkwang:wght@300;400;500;600;700&display=swap');
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  box-sizing: border-box;
+  font-family: "Fahkwang", sans-serif !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+body {
+
+  min-height: 100svh;
+
+  overflow-x: hidden;
+
+  color: #3e3435;
+
+  line-height: 1.8;
+
+  background:
+
+    radial-gradient(
+      ellipse 75% 60% at 50% 50%,
+      #ffb6c5 0%,
+      rgba(255,182,197,.85) 25%,
+      rgba(255,202,211,.60) 45%,
+      rgba(255,225,230,.35) 65%,
+      transparent 85%
+    ),
+
+    radial-gradient(
+      ellipse 45% 70% at 0% 50%,
+      rgba(255,215,222,.45),
+      transparent 75%
+    ),
+
+    radial-gradient(
+      ellipse 45% 70% at 100% 50%,
+      rgba(255,215,222,.40),
+      transparent 75%
+    ),
+
+    radial-gradient(
+      ellipse 80% 35% at 50% 0%,
+      #fff8f1 0%,
+      rgba(255,248,241,.75) 50%,
+      transparent 100%
+    ),
+
+    radial-gradient(
+      ellipse 80% 35% at 50% 100%,
+      #fff8f1 0%,
+      rgba(255,248,241,.75) 50%,
+      transparent 100%
+    ),
+
+    linear-gradient(
+      180deg,
+      #fff8f2 0%,
+      #ffedf0 35%,
+      #ffe3e8 50%,
+      #ffedf0 70%,
+      #fff8f2 100%
+    );
+
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.container {
+
+  min-height: 100svh;
+
+  width: 100%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: flex-start;
+
+  padding: 28px 18px;
+
+}
+
+/* =========================================================
+   SHELL
+   *** ยึดรูปที่ 2 เป็นหลัก ***
+========================================================= */
+
+.shell {
+
+  width: min(1050px, 100%);
+
+
+
+  padding: 40px 30px 45px;
+
+  border-radius: 22px;
+
+  background:
+    rgba(255,255,255,.46);
+
+  border:
+    1px solid rgba(255,255,255,.65);
+
+  backdrop-filter: blur(8px);
+
+  -webkit-backdrop-filter: blur(8px);
+
+  box-shadow:
+    0 20px 55px rgba(235,140,165,.12);
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: flex-start;
+
+  text-align: center;
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+#titleText {
+
+  margin: 0;
+
+  padding: 0;
+
+  font-size: 27px;
+
+  font-weight: 600;
+
+  line-height: 1.35;
+
+  color: #3e3435;
+
+}
+
+
+/* =========================================================
+   CAKE STAGE
+========================================================= */
+
+.cake-stage {
+
+  position: relative;
+
+  width: 340px;
+
+  height: 290px;
+
+  margin: 14px auto 4px;
+
+  display: grid;
+
+  place-items: center;
+
+  overflow: visible;
+
+  flex-shrink: 0;
+
+}
+
+
+/* =========================================================
+   CAKE
+========================================================= */
+
+.cake {
+
+  position: absolute;
+
+  width: 250px;
+
+  height: 200px;
+
+  left: 50%;
+
+  top: 50%;
+
+  margin-left: -125px;
+
+  margin-top: -82px;
+
+  cursor: pointer;
+
+  z-index: 10;
+
+  filter:
+    drop-shadow(
+      0 18px 18px rgba(0,0,0,.25)
+    );
+
+  transition:
+    transform .2s ease;
+
+}
+
+
+.cake:hover {
+  transform: scale(1.015);
+}
+
+
+.cake > * {
+  position: absolute;
+}
+
+
+/* =========================================================
+   PLATE
+========================================================= */
+
+.plate {
+
+  width: 270px;
+
+  height: 110px;
+
+  bottom: -10px;
+
+  left: -10px;
+
+  background: #ccc;
+
+  border-radius: 50%;
+
+  box-shadow:
+
+    0 2px 0 #aaa,
+    0 4px 0 #aaa,
+    0 5px 40px rgba(0,0,0,.5);
+
+}
+
+
+/* =========================================================
+   CAKE LAYERS
+========================================================= */
+
+.layer {
+
+  width: 250px;
+
+  height: 100px;
+
+  border-radius: 50%;
+
+  background: #553c13;
+
+  box-shadow:
+
+    0 2px 0 #604618,
+    0 4px 0 #4e370f,
+    0 6px 0 #4e370f,
+    0 8px 0 #4d360f,
+    0 10px 0 #4d360f,
+    0 12px 0 #4c350e,
+    0 14px 0 #4c350e,
+    0 16px 0 #4b340e,
+    0 18px 0 #4b340e,
+    0 20px 0 #4a330d,
+    0 22px 0 #4a330d,
+    0 24px 0 #49320d,
+    0 26px 0 #49320d,
+    0 28px 0 #48310c,
+    0 30px 0 #48310c;
+}
+
+
+.layer-top {
+  top: 0;
+}
+
+.layer-middle {
+  top: 33px;
+}
+
+.layer-bottom {
+  top: 66px;
+}
+
+
+/* =========================================================
+   ICING
+========================================================= */
+
+.icing {
+
+  top: 2px;
+
+  left: 5px;
+
+  width: 240px;
+
+  height: 90px;
+
+  background: #f0e4d0;
+
+  border-radius: 50%;
+
+  z-index: 4;
+
+}
+
+
+.icing::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: 4px;
+  right: 5px;
+  bottom: 6px;
+  left: 5px;
+
+  background: #f5e9d7;
+
+  border-radius: 50%;
+
+}
+
+
+/* =========================================================
+   DRIPS
+========================================================= */
+
+.drip {
+
+  background: #f0e4d0;
+
+  z-index: 5;
+
+  border-bottom-left-radius: 25px;
+
+  border-bottom-right-radius: 25px;
+
+}
+
+
+.drip1 {
+
+  top: 53px;
+
+  left: 5px;
+
+  width: 40px;
+
+  height: 48px;
+
+  transform: skewY(15deg);
+
+}
+
+
+.drip2 {
+
+  top: 69px;
+
+  left: 181px;
+
+  width: 50px;
+
+  height: 60px;
+
+  transform: skewY(-15deg);
+
+}
+
+
+.drip3 {
+
+  top: 54px;
+
+  left: 90px;
+
+  width: 80px;
+
+  height: 60px;
+
+  border-bottom-left-radius: 40px;
+
+  border-bottom-right-radius: 40px;
+
+}
+
+
+/* =========================================================
+   CANDLE
+========================================================= */
+
+.candle {
+
+  position: absolute;
+
+  width: 16px;
+
+  height: 50px;
+
+  border-radius: 8px 8px 4px 4px;
+
+  transform:
+    translate(-50%, -100%);
+
+  z-index: 15;
+
+  animation:
+    candleAppear .3s ease-out;
+
+}
+
+
+@keyframes candleAppear {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translate(-50%, -100%)
+      scale(.5);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translate(-50%, -100%)
+      scale(1);
+
+  }
+
+}
+
+
+.candle::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+
+  left: 0;
+
+  width: 16px;
+
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #9b1019;
+
+}
+
+
+/* =========================================================
+   CANDLE COLORS
+========================================================= */
+
+.candle-blue {
+
+  background:
+    repeating-linear-gradient(
+      -20deg,
+      #42b8df 0px,
+      #42b8df 6px,
+      #239bc8 7px,
+      #239bc8 9px
+    );
+
+}
+
+
+.candle-yellow {
+
+  background:
+    repeating-linear-gradient(
+      -20deg,
+      #ffd34e 0px,
+      #ffd34e 6px,
+      #f3ad16 7px,
+      #f3ad16 9px
+    );
+
+}
+
+
+.candle-pink {
+
+  background:
+    repeating-linear-gradient(
+      -20deg,
+      #ff9fc2 0px,
+      #ff9fc2 6px,
+      #ef719c 7px,
+      #ef719c 9px
+    );
+
+}
+
+
+.candle-purple {
+
+  background:
+    repeating-linear-gradient(
+      -20deg,
+      #b993ed 0px,
+      #b993ed 6px,
+      #8c62ce 7px,
+      #8c62ce 9px
+    );
+
+}
+
+
+.candle-green {
+
+  background:
+    repeating-linear-gradient(
+      -20deg,
+      #72d7b1 0px,
+      #72d7b1 6px,
+      #3ab68d 7px,
+      #3ab68d 9px
+    );
+
+}
+
+
+/* =========================================================
+   FLAME
+========================================================= */
+
+.flame {
+
+  position: absolute;
+
+  width: 15px;
+
+  height: 35px;
+
+  top: -34px;
+
+  left: 50%;
+
+  margin-left: -7.5px;
+
+  background: orange;
+
+  border-radius:
+    10px 10px 10px 10px /
+    25px 25px 10px 10px;
+
+  box-shadow:
+
+    0 0 10px rgba(255,165,0,.5),
+    0 0 20px rgba(255,165,0,.5),
+    0 0 60px rgba(255,165,0,.5);
+
+  transform-origin:
+    50% 90%;
+
+  animation:
+    flicker 1s ease-in-out alternate infinite;
+
+}
+
+
+@keyframes flicker {
+
+  0% {
+    transform: skewX(5deg);
+  }
+
+  25% {
+    transform: skewX(-5deg);
+  }
+
+  50% {
+    transform: skewX(10deg);
+  }
+
+  75% {
+    transform: skewX(-10deg);
+  }
+
+  100% {
+    transform: skewX(5deg);
+  }
+
+}
+
+
+/* =========================================================
+   BIG CARD
+   *** การ์ดต้องอยู่ใต้เค้กเสมอ ***
+========================================================= */
+
+.big-card {
+
+  width: min(780px, 100%);
+
+  min-height: 145px;
+
+  margin: 0 auto;
+
+  padding: 24px 28px;
+
+  border-radius: 30px;
+
+  background:
+    rgba(255,255,255,.68);
+
+  box-shadow:
+    0 22px 48px rgba(234,127,160,.30);
+
+  position: relative;
+
+  z-index: 20;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+}
+
+
+/* =========================================================
+   CARD TEXT
+========================================================= */
+
+.big-card h2 {
+
+  margin: 0 0 8px;
+
+  font-size: 24px;
+
+  line-height: 1.4;
+
+  font-weight: 600;
+
+}
+
+
+.big-card p {
+
+  margin: 4px 0;
+
+}
+
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.badge {
+
+  display: inline-flex;
+
+ align-items: flex-start;
+
+  justify-content: center;
+
+  margin: 0 0 8px;
+
+  padding: 7px 17px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(255,255,255,.85);
+
+  border:
+    1px solid rgba(242,109,155,.35);
+
+  color: #c24a6f;
+
+  font-weight: 600;
+
+  line-height: 1.4;
+
+}
+
+
+/* =========================================================
+   SUBTLE
+========================================================= */
+
+.subtle {
+
+  opacity: .9;
+
+  font-size: 15px;
+
+}
+
+
+/* =========================================================
+   BUTTON AREA
+========================================================= */
+
+.button-area {
+
+  margin-top: 16px;
+
+  display: flex;
+
+  justify-content: center;
+
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.btn {
+
+  position: relative;
+
+  overflow: hidden;
+
+  display: inline-flex;
+
+align-items: flex-start;
+  justify-content: center;
+
+  padding: 14px 22px;
+
+  border: 0;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f26d9b,
+      #f7a3be
+    );
+
+  color: #fff;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  line-height: 1.3;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 18px rgba(242,109,155,.28);
+
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease;
+
+}
+
+
+.btn:hover {
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 12px 25px rgba(242,109,155,.38);
+
+}
+
+
+.btn:active {
+
+  transform:
+    scale(.96);
+
+}
+
+
+.btn.secondary {
+
+  background: #fff;
+
+  color: #c24a6f;
+
+  border:
+    2px solid #f26d9b;
+
+}
+
+
+a.btn,
+a.btn:hover,
+a.btn:visited,
+a.btn:active {
+
+  text-decoration: none;
+
+}
+
+
+/* =========================================================
+   FIREWORK
+========================================================= */
+
+.pyro {
+
+  position: absolute;
+
+  top: -45px;
+
+  left: 50%;
+
+  width: 20px;
+
+  height: 20px;
+
+  transform:
+    translateX(-50%);
+
+  pointer-events: none;
+
+  display: none;
+
+  z-index: 30;
+
+}
+
+
+.pyro > div {
+
+  position: absolute;
+
+  width: 5px;
+
+  height: 5px;
+
+  border-radius: 50%;
+
+  animation:
+    bang 1s ease-out infinite,
+    gravity 1s ease-in infinite;
+
+}
+
+
+@keyframes bang {
+
+  to {
+
+    box-shadow:
+
+      -90px -60px #ff4f81,
+      -55px -95px #ffd43b,
+      0 -110px #6ddcff,
+      60px -80px #b47cff,
+      100px -30px #ff8a3d,
+      80px 35px #6ee7a8,
+      20px 75px #ff4f81,
+      -50px 60px #ffd43b,
+      -100px 20px #6ddcff;
+
+  }
+
+}
+
+
+@keyframes gravity {
+
+  to {
+
+    transform:
+      translateY(100px);
+
+    opacity: 0;
+
+  }
+
+}
+
+
+/* =========================================================
+   STARS
+========================================================= */
+
+.stars-layer {
+
+  position: fixed;
+
+  inset: 0;
+
+  width: 100vw;
+
+  height: 100svh;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: 999;
+
+}
+
+
+.star-piece {
+
+  position: absolute;
+
+  top: -60px;
+
+  width: 25px;
+
+  height: auto;
+
+  opacity: 0;
+
+  animation-name: starFall;
+
+  animation-timing-function:
+    cubic-bezier(.25,.46,.45,.94);
+
+  animation-fill-mode: forwards;
+
+}
+
+
+@keyframes starFall {
+
+  0% {
+
+    transform:
+      translate3d(0,-60px,0)
+      rotate(0deg)
+      scale(.7);
+
+    opacity: 0;
+
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  25% {
+
+    transform:
+      translate3d(
+        var(--drift1),
+        25vh,
+        0
+      )
+      rotate(90deg)
+      scale(1);
+
+  }
+
+  50% {
+
+    transform:
+      translate3d(
+        var(--drift2),
+        55vh,
+        0
+      )
+      rotate(180deg)
+      scale(.9);
+
+  }
+
+  75% {
+
+    transform:
+      translate3d(
+        var(--drift3),
+        80vh,
+        0
+      )
+      rotate(270deg)
+      scale(1.05);
+
+  }
+
+  92% {
+    opacity: 1;
+  }
+
+  100% {
+
+    transform:
+      translate3d(
+        var(--drift4),
+        115vh,
+        0
+      )
+      rotate(360deg)
+      scale(.75);
+
+    opacity: 0;
+
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 720px) {
+
   .container {
-    padding: 12px 10px;
+
+    padding:
+      16px 14px;
+
   }
 
-  .shell {
-    padding: 18px 12px 20px;
+
+.shell {
+
+  width: min(1050px, 100%);
+
+  min-height: auto;
+
+  height: auto;
+
+  padding: 40px 30px 45px;
+
+  #titleText {
+
+    font-size: 22px;
+
   }
 
-  .big-card {
-    padding: 16px 12px;
-  }
 
   .cake-stage {
-    width: min(280px, 80vw);
+
+    width:
+      min(320px, 90vw);
+
+    height: 250px;
+
+    margin:
+      8px auto 0;
+
   }
+
+
+  .cake {
+
+    transform:
+      scale(.86);
+
+  }
+
+
+  .cake:hover {
+
+    transform:
+      scale(.86);
+
+  }
+
+
+  .big-card {
+
+    width: 100%;
+
+    min-height: 135px;
+
+    padding:
+      20px 15px;
+
+    border-radius:
+      24px;
+
+  }
+
+
+  .big-card h2 {
+
+    font-size: 20px;
+
+  }
+
+
+  .subtle {
+
+    font-size: 13px;
+
+  }
+
+}
+
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .shell {
+
+    min-height: auto;
+
+    height: auto;
+
+    padding:
+      22px 12px 25px;
+
+  }
+
+
+  .cake-stage {
+
+    width: 290px;
+
+    height: 225px;
+
+  }
+
+
+  .cake {
+
+    transform:
+      scale(.76);
+
+  }
+
+
+  .cake:hover {
+
+    transform:
+      scale(.76);
+
+  }
+
+
+  .big-card {
+
+    min-height: 125px;
+
+    padding:
+      18px 12px;
+
+  }
+
+
+  .badge {
+
+    font-size: 13px;
+
+    padding:
+      7px 13px;
+
+  }
+
+}
+
+
+/* =========================================================
+   SHORT SCREEN
+========================================================= */
+
+@media (max-height: 680px) {
+
+  .container {
+
+    padding:
+      10px 14px;
+
+  }
+
+
+  .shell {
+
+    min-height: auto;
+
+    height: auto;
+
+    padding:
+      20px 14px 25px;
+
+  }
+
+.shell {
+
+  min-height: auto;
+
+  height: auto;
+
+  padding:
+    26px 14px 30px;
+
+  border-radius:
+    22px;
+
+}
+
+
+  .cake-stage {
+
+    height: 220px;
+
+    margin-top: 4px;
+
+  }
+
+
+  .cake {
+
+    transform:
+      scale(.72);
+
+  }
+
+
+  .cake:hover {
+
+    transform:
+      scale(.72);
+
+  }
+
 }
