@@ -650,302 +650,6 @@ a.btn.secondary{
 }
 
 
-/* ===============================
-   Cake Stage + Smoke Effect
-   =============================== */
-.cake-stage{
-  width: min(340px, 78vw);
-  margin: 14px auto 10px;
-  position: relative;
-  display: grid;
-  place-items: center;
-  perspective: 900px;
-}
-
-.cake-stage .cake-img{
-  width: 100%;
-  max-width: 340px;
-  display:block;
-  transform: rotateX(7deg) rotateY(-10deg);
-  transform-style: preserve-3d;
-  filter: drop-shadow(0 26px 26px rgba(0,0,0,.18));
-  transition: transform .35s ease, opacity .2s ease;
-}
-
-.cake-stage.is-ready .cake-img{
-  transform: rotateX(0deg) rotateY(0deg) scale(1.02);
-}
-
-.cake-stage.is-swap .cake-img{
-  opacity: 0;
-}
-
-.smoke{
-  position:absolute;
-  inset: 0;
-  pointer-events:none;
-  display:none;
-}
-
-.cake-stage.show-smoke .smoke{
-  display:block;
-}
-
-.smoke span{
-  position:absolute;
-  left: 50%;
-  top: 18%;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.92);
-  filter: blur(1px);
-  transform: translateX(-50%);
-  opacity: 0;
-  animation: puff 1.3s ease forwards;
-}
-
-.smoke span:nth-child(1){ margin-left:-28px; animation-delay: 0s; }
-.smoke span:nth-child(2){ margin-left:-10px; animation-delay: .06s; }
-.smoke span:nth-child(3){ margin-left:  6px;  animation-delay: .12s; }
-.smoke span:nth-child(4){ margin-left: 22px;  animation-delay: .18s; }
-.smoke span:nth-child(5){ margin-left:  0px; animation-delay: .24s; }
-
-@keyframes puff{
-  0%   { transform: translateX(-50%) translateY(18px) scale(.8); opacity: 0; }
-  15%  { opacity: .9; }
-  60%  { opacity: .55; }
-  100% { transform: translateX(-50%) translateY(-52px) scale(1.9); opacity: 0; }
-}
-
-/* ===============================
-   PASS PAGE LAYOUT
-   =============================== */
-.pass-layout{
-  display: flex;
-  gap: 24px;
-  align-items: stretch;
-}
-
-.pass-image{
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: rgba(255,255,255,0.35);
-  border-radius: 30px;
-  box-shadow: var(--shadow);
-  padding: 16px;
-}
-
-.pass-image img{
-  animation: float 3s ease-in-out infinite;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 22px;
-}
-
-@keyframes float{
-  0%,100%{ transform: translateY(0); }
-  50%{ transform: translateY(-6px); }
-}
-
-/* ===== IMAGE CENTER ===== */
-.center-img{
-  max-width: 80%;
-  height: auto;
-  display: block;
-  margin: 18px auto;
-  border-radius: 28px;
-  box-shadow: var(--shadow);
-  object-fit: cover;
-}
-
-/* ===== TIME GRID ===== */
-.time-grid{
-  display:grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap:14px;
-  margin-top:18px;
-}
-
-.time-box{
-  background: rgba(255,255,255,.85);
-  border-radius: 20px;
-  padding: 16px 10px;
-  box-shadow: var(--shadow-soft);
-}
-
-.time-value{
-  font-size: 26px;
-  font-weight: 900;
-  color:#c24a6f;
-}
-
-.time-label{
-  font-size: 14px;
-  opacity:.8;
-}
-
-/* Letter */
-.letter-img{
-  width: min(320px, 78vw);
-  margin: 10px auto 0;
-  cursor:pointer;
-
-  background: transparent;
-  box-shadow: none;
-  border-radius: 0;
-
-  display: block;
-}
-
-/* Vinyl */
-.vinyl-wrap{
-  width:290px;
-  height:290px;
-  margin: 0 auto 14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.vinyl{
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  object-fit: cover;
-  display:block;
-  box-shadow: 0 20px 40px rgba(0,0,0,.25);
-  background: transparent;
-}
-
-.music-controls{
-  display:flex;
-  justify-content:center;
-  margin-top: 14px;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-/* ===============================
-   RESPONSIVE (Tablet)
-   =============================== */
-@media (max-width: 900px){
-  :root{
-    --container-pad: 32px;
-    --shell-pad-x: 20px;
-    --shell-pad-y: 28px;
-  }
-
-  .big-card{ padding: 22px; }
-  .menu-grid{ width: min(560px, 100%); }
-}
-
-/* ===============================
-   RESPONSIVE (Phone)
-   =============================== */
-@media (max-width: 720px){
-  :root{
-    --container-pad: 20px;
-    --shell-pad-x: 16px;
-    --shell-pad-y: 22px;
-  }
-
-  h1{ font-size: 26px; }
-  h2{ font-size: 20px; }
-
-  /* ✅ flex บนมือถือให้เรียงลง */
-  .pass-layout{
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .pass-image{
-    order: -1;
-    padding: 12px;
-    border-radius: 24px;
-  }
-
-  /* กันรูปสูงเกินจอ */
-  .pass-image img{
-    height: auto;
-    max-height: 42vh;
-    object-fit: contain;
-  }
-
-  .big-card{
-    padding: 18px;
-    border-radius: 24px;
-  }
-
-  .pink-panel{
-    border-radius: 24px;
-    padding: 18px 16px;
-  }
-
-  /* ✅ ปุ่มเรียงสวยบนมือถือ */
-  .modal .row,
-  .music-controls{
-    flex-direction: column;
-    align-items: stretch;
-  }
-
- 
-
-  /* เมนูไม่แน่น */
-  .menu-grid{
-    width: 100%;
-    max-width: 520px;
-    gap: 12px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .menu-item{
-    min-height: 128px;
-    padding: 16px 12px;
-  }
-
-  .menu-icon{ width: 52px; height: 52px; }
-
-  /* keypad / digits */
-  .digits{ gap: 10px; }
-  .digit{ width: 44px; height: 44px; font-size: 18px; }
-  .key{ padding: 14px 0; font-size: 18px; }
-
-  /* time */
-  .time-grid{
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .time-value{ font-size: 22px; }
-
-  /* gallery */
-  .gallery{
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  /* vinyl */
-  .vinyl-wrap{ width: 210px; height: 210px; }
-
-  /* ปรับรูปเค้ก/รูปสื่อไม่ให้ใหญ่เกินการ์ด */
-  .cake-img{
-    width: min(260px, 72vw);
-    max-width: 280px;
-  }
-
-  .center-img{
-    max-width: 100%;
-    max-height: 46vh;
-    object-fit: contain;
-  }
-
-  .letter-img{
-    width: min(320px, 82vw);
-    max-width: 340px;
-  }
-}
 
 /* ===============================
    RESPONSIVE (Small Phone)
@@ -1239,52 +943,6 @@ a.btn.secondary{
 .fireworks.show {
   display: block;
 }
-/* ===============================
-   CAKE ONLY
-   =============================== */
-
-/* ===== Cake Stage ===== */
-.cake-stage{
-  width: min(340px, 78vw);
-  margin: 14px auto 10px;
-  position: relative;
-  display: grid;
-  place-items: center;
-  perspective: 900px;
-}
-
-/* ===== Cake Image ===== */
-.cake-stage .cake-img{
-  width: 100%;
-  max-width: 340px;
-  display: block;
-
-  transform: rotateX(7deg) rotateY(-10deg);
-  transform-style: preserve-3d;
-
-  filter: drop-shadow(
-    0 26px 26px rgba(0,0,0,.18)
-  );
-
-  transition:
-    transform .35s ease,
-    opacity .2s ease;
-
-  animation: cakeFloat 3.2s ease-in-out infinite;
-}
-
-/* ===== Cake Ready ===== */
-.cake-stage.is-ready .cake-img{
-  transform:
-    rotateX(0deg)
-    rotateY(0deg)
-    scale(1.02);
-}
-
-/* ===== Cake Swap ===== */
-.cake-stage.is-swap .cake-img{
-  opacity: 0;
-}
 
 
 /* ===============================
@@ -1447,22 +1105,505 @@ a.btn.secondary{
   }
 
 }
+
+
+
 /* =========================================================
-   CAKE STAGE
+   CAKE — ORIGINAL CSS CAKE
 ========================================================= */
 
-.cake-stage {
-  position: relative;
+.cake-stage{
   width: 340px;
   height: 290px;
+
   margin: 14px auto 4px;
+
+  position: relative;
+
   display: grid;
   place-items: center;
+
   overflow: visible;
+
   flex-shrink: 0;
 }
 
 
+/* =========================================================
+   CAKE
+========================================================= */
+
+.cake{
+  position: absolute;
+
+  width: 250px;
+  height: 200px;
+
+  top: 50%;
+  left: 50%;
+
+  margin-top: -82px;
+  margin-left: -125px;
+
+  z-index: 10;
+
+  cursor: pointer;
+
+  filter:
+    drop-shadow(
+      0 18px 18px rgba(0,0,0,.25)
+    );
+
+  transition:
+    transform .2s ease;
+}
+
+.cake:hover{
+  transform: scale(1.015);
+}
+
+.cake > *{
+  position: absolute;
+}
+
+
+/* =========================================================
+   PLATE
+========================================================= */
+
+.plate{
+  width: 270px;
+  height: 110px;
+
+  bottom: -10px;
+  left: -10px;
+
+  background: #ccc;
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 2px 0 #aaa,
+    0 4px 0 #aaa,
+    0 5px 40px rgba(0,0,0,.5);
+}
+
+
+/* =========================================================
+   CAKE LAYERS
+========================================================= */
+
+.layer{
+  width: 250px;
+  height: 100px;
+
+  border-radius: 50%;
+
+  background: #553c13;
+
+  box-shadow:
+    0 2px 0 #604618,
+    0 4px 0 #4e370f,
+    0 6px 0 #4e370f,
+    0 8px 0 #4d360f,
+    0 10px 0 #4d360f,
+    0 12px 0 #4c350e,
+    0 14px 0 #4c350e,
+    0 16px 0 #4b340e,
+    0 18px 0 #4b340e,
+    0 20px 0 #4a330d,
+    0 22px 0 #4a330d,
+    0 24px 0 #49320d,
+    0 26px 0 #49320d,
+    0 28px 0 #48310c,
+    0 30px 0 #48310c;
+}
+
+.layer-top{
+  top: 0;
+}
+
+.layer-middle{
+  top: 33px;
+}
+
+.layer-bottom{
+  top: 66px;
+}
+
+
+/* =========================================================
+   ICING
+========================================================= */
+
+.icing{
+  top: 2px;
+  left: 5px;
+
+  width: 240px;
+  height: 90px;
+
+  background: #f0e4d0;
+
+  border-radius: 50%;
+
+  z-index: 4;
+}
+
+.icing::before{
+  content: "";
+
+  position: absolute;
+
+  top: 4px;
+  right: 5px;
+  bottom: 6px;
+  left: 5px;
+
+  background: #f5e9d7;
+
+  border-radius: 50%;
+}
+
+
+/* =========================================================
+   DRIPS
+========================================================= */
+
+.drip{
+  background: #f0e4d0;
+
+  z-index: 5;
+
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.drip1{
+  top: 53px;
+  left: 5px;
+
+  width: 40px;
+  height: 48px;
+
+  transform: skewY(15deg);
+}
+
+.drip2{
+  top: 69px;
+  left: 181px;
+
+  width: 50px;
+  height: 60px;
+
+  transform: skewY(-15deg);
+}
+
+.drip3{
+  top: 54px;
+  left: 90px;
+
+  width: 80px;
+  height: 60px;
+
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+
+/* =========================================================
+   CANDLE
+========================================================= */
+
+.candle{
+  position: absolute;
+
+  width: 16px;
+  height: 50px;
+
+  border-radius: 8px 8px 4px 4px;
+
+  transform:
+    translate(-50%, -100%);
+
+  z-index: 15;
+
+  animation:
+    candleAppear .3s ease-out;
+}
+
+@keyframes candleAppear{
+  from{
+    opacity: 0;
+
+    transform:
+      translate(-50%, -100%)
+      scale(.5);
+  }
+
+  to{
+    opacity: 1;
+
+    transform:
+      translate(-50%, -100%)
+      scale(1);
+  }
+}
+
+.candle::before{
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 16px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #9b1019;
+}
+
+
+/* =========================================================
+   CANDLE COLORS
+========================================================= */
+
+.candle-blue{
+  background:
+    repeating-linear-gradient(
+      -20deg,
+      #42b8df 0px,
+      #42b8df 6px,
+      #239bc8 7px,
+      #239bc8 9px
+    );
+}
+
+.candle-yellow{
+  background:
+    repeating-linear-gradient(
+      -20deg,
+      #ffd34e 0px,
+      #ffd34e 6px,
+      #f3ad16 7px,
+      #f3ad16 9px
+    );
+}
+
+.candle-pink{
+  background:
+    repeating-linear-gradient(
+      -20deg,
+      #ff9fc2 0px,
+      #ff9fc2 6px,
+      #ef719c 7px,
+      #ef719c 9px
+    );
+}
+
+.candle-purple{
+  background:
+    repeating-linear-gradient(
+      -20deg,
+      #b993ed 0px,
+      #b993ed 6px,
+      #8c62ce 7px,
+      #8c62ce 9px
+    );
+}
+
+.candle-green{
+  background:
+    repeating-linear-gradient(
+      -20deg,
+      #72d7b1 0px,
+      #72d7b1 6px,
+      #3ab68d 7px,
+      #3ab68d 9px
+    );
+}
+
+
+/* =========================================================
+   FLAME
+========================================================= */
+
+.flame{
+  position: absolute;
+
+  width: 15px;
+  height: 35px;
+
+  top: -34px;
+  left: 50%;
+
+  margin-left: -7.5px;
+
+  background: orange;
+
+  border-radius:
+    10px 10px 10px 10px /
+    25px 25px 10px 10px;
+
+  box-shadow:
+    0 0 10px rgba(255,165,0,.5),
+    0 0 20px rgba(255,165,0,.5),
+    0 0 60px rgba(255,165,0,.5);
+
+  transform-origin:
+    50% 90%;
+
+  animation:
+    flicker 1s ease-in-out alternate infinite;
+}
+
+@keyframes flicker{
+  0%{
+    transform: skewX(5deg);
+  }
+
+  25%{
+    transform: skewX(-5deg);
+  }
+
+  50%{
+    transform: skewX(10deg);
+  }
+
+  75%{
+    transform: skewX(-10deg);
+  }
+
+  100%{
+    transform: skewX(5deg);
+  }
+}
+
+
+/* =========================================================
+   CAKE FIREWORK
+========================================================= */
+
+.pyro{
+  position: absolute;
+
+  top: -45px;
+  left: 50%;
+
+  width: 20px;
+  height: 20px;
+
+  transform: translateX(-50%);
+
+  pointer-events: none;
+
+  display: none;
+
+  z-index: 30;
+}
+
+.pyro > div{
+  position: absolute;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  animation:
+    bang 1s ease-out infinite,
+    gravity 1s ease-in infinite;
+}
+
+@keyframes bang{
+  to{
+    box-shadow:
+      -90px -60px #ff4f81,
+      -55px -95px #ffd43b,
+      0 -110px #6ddcff,
+      60px -80px #b47cff,
+      100px -30px #ff8a3d,
+      80px 35px #6ee7a8,
+      20px 75px #ff4f81,
+      -50px 60px #ffd43b,
+      -100px 20px #6ddcff;
+  }
+}
+
+@keyframes gravity{
+  to{
+    transform: translateY(100px);
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   CAKE MOBILE
+========================================================= */
+
+@media (max-width:720px){
+
+  .cake-stage{
+    width: 320px;
+    height: 250px;
+
+    margin: 8px auto 0;
+  }
+
+  .cake{
+    transform: scale(.86);
+  }
+
+  .cake:hover{
+    transform: scale(.86);
+  }
+}
+
+
+/* =========================================================
+   CAKE SMALL PHONE
+========================================================= */
+
+@media (max-width:420px){
+
+  .cake-stage{
+    width: 290px;
+    height: 225px;
+  }
+
+  .cake{
+    transform: scale(.76);
+  }
+
+  .cake:hover{
+    transform: scale(.76);
+  }
+}
+
+
+/* =========================================================
+   SHORT SCREEN
+========================================================= */
+
+@media (max-height:680px){
+
+  .cake-stage{
+    height: 220px;
+    margin-top: 4px;
+  }
+
+  .cake{
+    transform: scale(.72);
+  }
+
+  .cake:hover{
+    transform: scale(.72);
+  }
+}
 /* =========================================================
    CAKE
 ========================================================= */
