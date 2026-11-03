@@ -1916,3 +1916,123 @@ body:has(.cake-stage) .button-area{
   }
 
 }
+/* =========================================================
+   STAR FALL ANIMATION
+   star1.png - star4.png
+   เฉพาะเอฟเฟกต์ดาวหลังเป่าเทียน
+========================================================= */
+
+#starsLayer{
+  position: fixed;
+  inset: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  pointer-events: none;
+  overflow: hidden;
+
+  z-index: 9999;
+
+  /* ไม่ให้เกิด scrollbar */
+  contain: strict;
+}
+
+
+/* =========================================================
+   ดาวแต่ละดวง
+========================================================= */
+
+#starsLayer .star-piece{
+  position: absolute;
+
+  top: -80px;
+
+  display: block;
+
+  height: auto;
+
+  pointer-events: none;
+  user-select: none;
+
+  object-fit: contain;
+
+  will-change:
+    transform,
+    opacity;
+
+  /* JS จะกำหนด duration + delay ให้แต่ละดวง */
+  animation-name: starFall;
+  animation-timing-function: cubic-bezier(.22,.61,.36,1);
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+
+/* =========================================================
+   STAR FALL
+========================================================= */
+
+@keyframes starFall{
+
+  /* เริ่มจากด้านบน */
+  0%{
+    transform:
+      translate3d(0, -10vh, 0)
+      rotate(0deg)
+      scale(.7);
+
+    opacity: 0;
+  }
+
+
+  /* ค่อย ๆ ปรากฏ */
+  8%{
+    opacity: 1;
+  }
+
+
+  /* เริ่มแกว่ง */
+  25%{
+    transform:
+      translate3d(var(--drift1), 25vh, 0)
+      rotate(90deg)
+      scale(.9);
+
+    opacity: 1;
+  }
+
+
+  /* กลางจอ */
+  50%{
+    transform:
+      translate3d(var(--drift2), 50vh, 0)
+      rotate(180deg)
+      scale(1);
+
+    opacity: 1;
+  }
+
+
+  /* เริ่มจาง */
+  75%{
+    transform:
+      translate3d(var(--drift3), 75vh, 0)
+      rotate(270deg)
+      scale(1.05);
+
+    opacity: .8;
+  }
+
+
+  /* หลุดออกจากจอ */
+  100%{
+    transform:
+      translate3d(var(--drift4), 115vh, 0)
+      rotate(360deg)
+      scale(1.15);
+
+    opacity: 0;
+  }
+
+}

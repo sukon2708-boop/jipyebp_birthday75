@@ -1,29 +1,25 @@
 /* =========================================================
+   CAKE.JS
+   หน้าเค้กวันเกิด
+========================================================= */
+
+
+/* =========================================================
    ELEMENTS
 ========================================================= */
 
 const cake = document.getElementById("cake");
-
 const msg = document.getElementById("msg");
-
 const micBtn = document.getElementById("micBtn");
 
 const pyro = document.getElementById("pyro");
+const starsLayer = document.getElementById("starsLayer");
 
-const starsLayer =
-  document.getElementById("starsLayer");
+const step1 = document.getElementById("step1");
+const step2 = document.getElementById("step2");
+const step3 = document.getElementById("step3");
 
-const step1 =
-  document.getElementById("step1");
-
-const step2 =
-  document.getElementById("step2");
-
-const step3 =
-  document.getElementById("step3");
-
-const titleText =
-  document.getElementById("titleText");
+const titleText = document.getElementById("titleText");
 
 
 /* =========================================================
@@ -59,136 +55,52 @@ const candleColors = [
 
 
 /* =========================================================
-   INITIAL
+   INITIAL STATE
 ========================================================= */
 
-if (micBtn) {
-  micBtn.style.display = "none";
-}
+micBtn.style.display = "none";
 
-if (step2) {
-  step2.style.display = "none";
-}
+step2.style.display = "none";
 
-if (step3) {
-  step3.style.display = "none";
-}
+step3.style.display = "none";
 
 
 /* =========================================================
-   CLICK CAKE
+   CLICK CAKE → CREATE CANDLE
 ========================================================= */
 
 cake.addEventListener("click", function(event) {
 
+  /* ถ้าเป่าเทียนไปแล้ว ห้ามปักเพิ่ม */
   if (hasBlown) {
     return;
   }
 
 
-  /*
-   * IMPORTANT
-   *
-   * .cake ถูก scale บนมือถือ
-   * ดังนั้น getBoundingClientRect()
-   * จะได้ขนาดหลัง scale
-   *
-   * เราจึงต้องแปลงกลับเป็น
-   * coordinate จริงของ cake 250x200
-   */
+  /* ตำแหน่งของเค้ก */
+  const rect = cake.getBoundingClientRect();
 
 
-  const rect =
-    cake.getBoundingClientRect();
+  /* ตำแหน่งที่ผู้ใช้คลิก */
+  const x = event.clientX - rect.left;
 
-
-  const baseWidth = 250;
-
-  const baseHeight = 200;
-
-
-  const scaleX =
-    rect.width / baseWidth;
-
-  const scaleY =
-    rect.height / baseHeight;
-
-
-  let x =
-    (event.clientX - rect.left)
-    / scaleX;
-
-
-  let y =
-    (event.clientY - rect.top)
-    / scaleY;
+  const y = event.clientY - rect.top;
 
 
   /*
-   * กันคลิกนอกตัว cake
-   */
+    ให้คลิกได้เฉพาะบริเวณด้านบนของเค้ก
+  */
 
-  if (
-    x < 0 ||
-    x > baseWidth ||
-    y < 0 ||
-    y > baseHeight
-  ) {
+  if (y < 15 || y > 80) {
     return;
   }
 
 
-  /*
-   * ต้องคลิกบริเวณด้านบนของเค้ก
-   *
-   * แต่ไม่ล็อกแค่ 15-80 แบบของเดิม
-   * เพราะมือถือ scale ทำให้ตำแหน่งเพี้ยน
-   *
-   * เปิดช่วงกว้างขึ้น
-   */
-
-  if (y > 105) {
-    return;
-  }
-
-
-  /*
-   * จำกัดไม่ให้เทียนชิดขอบเกินไป
-   */
-
-  x =
-    Math.max(
-      20,
-      Math.min(
-        230,
-        x
-      )
-    );
-
-
-  /*
-   * ให้เทียนปักอยู่บนหน้าครีม
-   *
-   * ไม่ว่าผู้ใช้จะคลิกตรงไหน
-   * จะใช้ตำแหน่ง Y ที่เหมาะสม
-   */
-
-  y =
-    Math.max(
-      18,
-      Math.min(
-        76,
-        y
-      )
-    );
-
-
-  /* =======================================================
+  /* =====================================================
      CREATE CANDLE
-  ======================================================= */
+  ===================================================== */
 
-  const candle =
-    document.createElement("div");
+  const candle = document.createElement("div");
 
 
   candle.className =
@@ -199,65 +111,52 @@ cake.addEventListener("click", function(event) {
     ];
 
 
-  candle.style.left =
-    x + "px";
-
-
-  candle.style.top =
-    y + "px";
-
-
-  /* =======================================================
-     CREATE FLAME
-  ======================================================= */
-
-  const flame =
-    document.createElement("div");
-
-
-  flame.className =
-    "flame";
-
-
-  candle.appendChild(flame);
-
-
   /*
-   * เพิ่มเทียนเข้า cake
-   */
+    ตำแหน่งเทียน
+  */
 
-  cake.appendChild(candle);
+  candle.style.left = x + "px";
 
-
-  /*
-   * เก็บ flame
-   * เอาไว้ดับตอนเป่า
-   */
-
-  flames.push(flame);
+  candle.style.top = y + "px";
 
 
   candleCount++;
 
 
-  /* =======================================================
-     CHANGE STEP
-  ======================================================= */
+  /* =====================================================
+     CREATE FLAME
+  ===================================================== */
 
-  step1.style.display =
-    "none";
+  const flame = document.createElement("div");
+
+  flame.className = "flame";
 
 
-  step2.style.display =
-    "block";
+  candle.appendChild(flame);
+
+
+  /* ใส่เทียนลงบนเค้ก */
+  cake.appendChild(candle);
+
+
+  /* เก็บ flame ไว้สำหรับตอนเป่า */
+  flames.push(flame);
+
+
+  /* =====================================================
+     SHOW STEP 2
+  ===================================================== */
+
+  step1.style.display = "none";
+
+  step2.style.display = "flex";
 
 
   msg.textContent =
     "ปักเทียนแล้ว! กดอนุญาตไมโครโฟนเพื่อเป่า";
 
 
-  micBtn.style.display =
-    "inline-flex";
+  micBtn.style.display = "inline-flex";
 
 });
 
@@ -278,10 +177,11 @@ micBtn.addEventListener(
 
 async function startMicrophone() {
 
-  if (
-    detecting ||
-    hasBlown
-  ) {
+  /*
+    ป้องกันการกดซ้ำ
+  */
+
+  if (detecting || hasBlown) {
     return;
   }
 
@@ -289,8 +189,7 @@ async function startMicrophone() {
   detecting = true;
 
 
-  micBtn.style.display =
-    "none";
+  micBtn.style.display = "none";
 
 
   msg.textContent =
@@ -298,6 +197,11 @@ async function startMicrophone() {
 
 
   try {
+
+
+    /* =====================================================
+       CHECK MICROPHONE API
+    ===================================================== */
 
     if (
       !navigator.mediaDevices ||
@@ -311,25 +215,25 @@ async function startMicrophone() {
     }
 
 
+    /* =====================================================
+       REQUEST MICROPHONE
+    ===================================================== */
+
     const stream =
-      await navigator.mediaDevices
-      .getUserMedia({
-        audio:true
+      await navigator.mediaDevices.getUserMedia({
+
+        audio: true
+
       });
 
+
+    /* =====================================================
+       AUDIO CONTEXT
+    ===================================================== */
 
     const AudioContext =
       window.AudioContext ||
       window.webkitAudioContext;
-
-
-    if (!AudioContext) {
-
-      throw new Error(
-        "AudioContext not supported"
-      );
-
-    }
 
 
     const audioContext =
@@ -339,29 +243,30 @@ async function startMicrophone() {
     await audioContext.resume();
 
 
+    /* =====================================================
+       AUDIO SOURCE
+    ===================================================== */
+
     const source =
-      audioContext
-      .createMediaStreamSource(
+      audioContext.createMediaStreamSource(
         stream
       );
 
 
+    /* =====================================================
+       ANALYSER
+    ===================================================== */
+
     const analyser =
-      audioContext
-      .createAnalyser();
+      audioContext.createAnalyser();
 
 
-    analyser.fftSize =
-      512;
+    analyser.fftSize = 512;
+
+    analyser.smoothingTimeConstant = .15;
 
 
-    analyser.smoothingTimeConstant =
-      0.15;
-
-
-    source.connect(
-      analyser
-    );
+    source.connect(analyser);
 
 
     const data =
@@ -369,6 +274,10 @@ async function startMicrophone() {
         analyser.frequencyBinCount
       );
 
+
+    /* =====================================================
+       WAIT BEFORE DETECTING
+    ===================================================== */
 
     setTimeout(function() {
 
@@ -388,10 +297,16 @@ async function startMicrophone() {
         audioContext
       );
 
-    }, 700);
+
+    }, 1000);
 
 
   } catch (error) {
+
+
+    /* =====================================================
+       MICROPHONE ERROR
+    ===================================================== */
 
     console.error(
       "Microphone error:",
@@ -430,14 +345,14 @@ function detectBlow(
   }
 
 
-  analyser.getByteFrequencyData(
-    data
-  );
+  /* อ่านเสียง */
+  analyser.getByteFrequencyData(data);
 
 
   let total = 0;
 
 
+  /* รวมค่าความดัง */
   for (
     let i = 0;
     i < data.length;
@@ -449,21 +364,23 @@ function detectBlow(
   }
 
 
+  /* ค่าเฉลี่ยเสียง */
   const volume =
     total / data.length;
 
 
   /*
-   * ค่าประมาณสำหรับมือถือ
-   */
+    ค่าที่ใช้ตรวจจับการเป่า
+  */
 
-  const BLOW_THRESHOLD = 35;
+  const BLOW_THRESHOLD = 45;
 
 
-  if (
-    volume >
-    BLOW_THRESHOLD
-  ) {
+  /* =====================================================
+     BLOW DETECTED
+  ===================================================== */
+
+  if (volume > BLOW_THRESHOLD) {
 
     finishBlow(
       stream,
@@ -471,21 +388,21 @@ function detectBlow(
     );
 
     return;
+
   }
 
 
-  requestAnimationFrame(
-    function() {
+  /* ตรวจต่อ */
+  requestAnimationFrame(function() {
 
-      detectBlow(
-        analyser,
-        data,
-        stream,
-        audioContext
-      );
+    detectBlow(
+      analyser,
+      data,
+      stream,
+      audioContext
+    );
 
-    }
-  );
+  });
 
 }
 
@@ -509,80 +426,69 @@ function finishBlow(
   detecting = false;
 
 
-  /* =======================================================
-     ดับเทียน
-  ======================================================= */
+  /* =====================================================
+     EXTINGUISH ALL FLAMES
+  ===================================================== */
 
-  flames.forEach(
-    function(flame) {
+  flames.forEach(function(flame) {
 
-      flame.style.opacity =
-        "0";
+    flame.style.opacity = "0";
 
-      flame.style.animation =
-        "none";
+    flame.style.animation = "none";
 
-    }
-  );
+  });
 
 
-  /* =======================================================
-     TITLE
-  ======================================================= */
+  /* =====================================================
+     REMOVE TITLE
+  ===================================================== */
 
-  titleText.textContent =
-    "";
-
-
-  /* =======================================================
-     HIDE STEP 2
-  ======================================================= */
-
-  step2.style.display =
-    "none";
+  titleText.textContent = "";
 
 
-  /* =======================================================
-     SHOW STEP 3
-  ======================================================= */
+  /* =====================================================
+     CHANGE STEP
+  ===================================================== */
 
-  step3.style.display =
-    "block";
+  step2.style.display = "none";
 
-
-  /* =======================================================
-     FIREWORK
-  ======================================================= */
-
-  pyro.style.display =
-    "block";
+  step3.style.display = "flex";
 
 
-  /* =======================================================
-     STARS
-  ======================================================= */
+  /* =====================================================
+     FIREWORK ON CAKE
+  ===================================================== */
+
+  pyro.style.display = "block";
+
+
+  /* =====================================================
+     SPAWN FALLING STARS
+  ===================================================== */
 
   spawnStars();
 
 
-  /* =======================================================
-     CLOSE MICROPHONE
-  ======================================================= */
+  /* =====================================================
+     STOP MICROPHONE
+  ===================================================== */
 
   if (stream) {
 
     stream
       .getTracks()
-      .forEach(
-        function(track) {
+      .forEach(function(track) {
 
-          track.stop();
+        track.stop();
 
-        }
-      );
+      });
 
   }
 
+
+  /* =====================================================
+     CLOSE AUDIO
+  ===================================================== */
 
   if (
     audioContext &&
@@ -597,18 +503,31 @@ function finishBlow(
 
 
 /* =========================================================
-   STARS
+   SPAWN STARS
 ========================================================= */
 
 function spawnStars() {
 
-  const STAR_COUNT =
-    100;
+
+  /* จำนวนดาว */
+  const STAR_COUNT = 100;
 
 
-  const vw =
-    window.innerWidth;
+  /* ความกว้างหน้าจอ */
+  const vw = window.innerWidth;
 
+
+  /*
+    ล้างดาวเก่าก่อน
+    ป้องกันดาวซ้ำถ้ามีการเรียกฟังก์ชันอีกครั้ง
+  */
+
+  starsLayer.innerHTML = "";
+
+
+  /* =====================================================
+     CREATE STARS
+  ===================================================== */
 
   for (
     let i = 0;
@@ -616,11 +535,21 @@ function spawnStars() {
     i++
   ) {
 
-    const img =
-      document.createElement(
-        "img"
-      );
 
+    /* ===================================================
+       CREATE IMAGE
+    =================================================== */
+
+    const img =
+      document.createElement("img");
+
+
+    /*
+      สลับ star1.png
+      star2.png
+      star3.png
+      star4.png
+    */
 
     const starNum =
       (i % 4) + 1;
@@ -634,6 +563,10 @@ function spawnStars() {
       "star-piece";
 
 
+    /* ===================================================
+       RANDOM SIZE
+    =================================================== */
+
     const size =
       18 +
       Math.random() * 25;
@@ -643,10 +576,25 @@ function spawnStars() {
       size + "px";
 
 
-    img.style.left =
-      Math.random() * vw +
-      "px";
+    /* ===================================================
+       RANDOM START POSITION
+    =================================================== */
 
+    img.style.left =
+      Math.random() * vw + "px";
+
+
+    /*
+      เริ่มเหนือหน้าจอ
+    */
+
+    img.style.top =
+      "-80px";
+
+
+    /* ===================================================
+       RANDOM DRIFT
+    =================================================== */
 
     img.style.setProperty(
       "--drift1",
@@ -684,10 +632,18 @@ function spawnStars() {
     );
 
 
+    /* ===================================================
+       RANDOM ANIMATION SPEED
+    =================================================== */
+
     const duration =
       5 +
       Math.random() * 7;
 
+
+    /* ===================================================
+       RANDOM DELAY
+    =================================================== */
 
     const delay =
       Math.random() * 3;
@@ -701,22 +657,50 @@ function spawnStars() {
       delay + "s";
 
 
-    starsLayer.appendChild(
-      img
-    );
+    /*
+      บังคับให้ใช้ animation
+    */
+
+    img.style.animationName =
+      "starFall";
 
 
-    setTimeout(
-      function() {
+    img.style.animationTimingFunction =
+      "linear";
 
-        img.remove();
 
-      },
-      (duration + delay) *
-      1000 +
-      1000
-    );
+    img.style.animationFillMode =
+      "forwards";
+
+
+    /* ===================================================
+       ADD TO PAGE
+    =================================================== */
+
+    starsLayer.appendChild(img);
+
+
+    /* ===================================================
+       REMOVE AFTER ANIMATION
+    =================================================== */
+
+    setTimeout(function() {
+
+      img.remove();
+
+    }, (
+      duration +
+      delay
+    ) * 1000 + 1000);
+
 
   }
 
 }
+
+
+/* =========================================================
+   OPTIONAL:
+   ถ้าหน้าจอเปลี่ยนขนาดระหว่างเอฟเฟกต์
+   ไม่ต้องทำอะไรเพิ่มเติม
+========================================================= */
