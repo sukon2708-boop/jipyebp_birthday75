@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ความทรงจำ</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="shell center">
+      <h1>ความทรงจำ</h1>
+      <p class="subtle">กดรูปเพื่อดูใหญ่</p>
+
+      <div class="gallery" id="gallery"></div>
+
+      <div style="margin-top:18px;">
+        <a class="btn secondary" href="menu.html">ย้อนกลับ</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal center">
+      <img id="bigImg" alt="memory" style="width:100%; border-radius:18px; box-shadow: var(--shadow-soft);" />
+      <div class="row">
+        <button class="btn" id="closeModalBtn">ปิด</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/memories.js"></script>
+</body>
+</html>

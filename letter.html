@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ข้อความถึงเธอ</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="shell center">
+
+      <h1>ข้อความถึงเธอ</h1>
+
+
+        <p class="subtle">กดที่รูปจดหมายเพื่ออ่าน</p>
+
+        <!-- รูปจดหมาย -->
+        <img
+          src="assets/lettercover.png"
+          alt="letter"
+          id="openLetter"
+          class="letter-img"
+        />
+
+        <!-- แถวปุ่ม (กว้างเท่ากัน ซ้ายขวา) -->
+        <div class="button-row">
+          <button class="btn" id="readBtn">อ่านจดหมาย</button>
+          <a class="btn secondary" href="menu.html">ย้อนกลับ</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal center">
+      <h3></h3>
+
+      <p id="letterText"></p>
+
+      <div class="row">
+        <button class="btn" id="closeModalBtn">ปิด</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="js/letter.js"></script>
+
+</body>
+</html>

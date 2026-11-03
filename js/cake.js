@@ -1,0 +1,554 @@
+
+const cake = document.getElementById("cake");
+const msg = document.getElementById("msg");
+const micBtn = document.getElementById("micBtn");
+
+const pyro = document.getElementById("pyro");
+const starsLayer = document.getElementById("starsLayer");
+
+const step1 = document.getElementById("step1");
+const step2 = document.getElementById("step2");
+const step3 = document.getElementById("step3");
+
+const titleText = document.getElementById("titleText");
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let flames = [];
+
+let candleCount = 0;
+
+let hasBlown = false;
+
+let detecting = false;
+
+
+/* =========================================================
+   CANDLE COLORS
+========================================================= */
+
+const candleColors = [
+  "candle-blue",
+  "candle-yellow",
+  "candle-pink",
+  "candle-purple",
+  "candle-green"
+];
+
+
+/* =========================================================
+   INITIAL
+========================================================= */
+
+micBtn.style.display = "none";
+
+step2.style.display = "none";
+
+step3.style.display = "none";
+
+
+/* =========================================================
+   CLICK CAKE
+========================================================= */
+
+cake.addEventListener("click", function(event) {
+
+  if (hasBlown) {
+    return;
+  }
+
+
+  const rect = cake.getBoundingClientRect();
+
+
+  const x =
+    event.clientX - rect.left;
+
+
+  const y =
+    event.clientY - rect.top;
+
+
+  /*
+    ให้คลิกได้เฉพาะบริเวณด้านบนของเค้ก
+  */
+
+  if (y < 15 || y > 80) {
+    return;
+  }
+
+
+  /* =======================================================
+     CREATE CANDLE
+  ======================================================= */
+
+  const candle =
+    document.createElement("div");
+
+
+  candle.className =
+    "candle " +
+    candleColors[
+      candleCount %
+      candleColors.length
+    ];
+
+
+  candle.style.left =
+    x + "px";
+
+
+  candle.style.top =
+    y + "px";
+
+
+  candleCount++;
+
+
+  /* =======================================================
+     FLAME
+  ======================================================= */
+
+  const flame =
+    document.createElement("div");
+
+
+  flame.className =
+    "flame";
+
+
+  candle.appendChild(flame);
+
+
+  cake.appendChild(candle);
+
+
+  flames.push(flame);
+
+
+  /* =======================================================
+     CHANGE STEP
+  ======================================================= */
+
+  step1.style.display = "none";
+
+  step2.style.display = "flex";
+
+
+  msg.textContent =
+    "ปักเทียนแล้ว! กดอนุญาตไมโครโฟนเพื่อเป่า";
+
+
+  micBtn.style.display =
+    "inline-flex";
+
+});
+
+
+/* =========================================================
+   MICROPHONE BUTTON
+========================================================= */
+
+micBtn.addEventListener(
+  "click",
+  startMicrophone
+);
+
+
+/* =========================================================
+   START MICROPHONE
+========================================================= */
+
+async function startMicrophone() {
+
+  if (detecting || hasBlown) {
+    return;
+  }
+
+
+  detecting = true;
+
+
+  micBtn.style.display = "none";
+
+
+  msg.textContent =
+    "กำลังเปิดไมโครโฟน...";
+
+
+  try {
+
+    if (
+      !navigator.mediaDevices ||
+      !navigator.mediaDevices.getUserMedia
+    ) {
+
+      throw new Error(
+        "Microphone API not supported"
+      );
+
+    }
+
+
+    const stream =
+      await navigator.mediaDevices
+      .getUserMedia({
+        audio: true
+      });
+
+
+    const AudioContext =
+      window.AudioContext ||
+      window.webkitAudioContext;
+
+
+    const audioContext =
+      new AudioContext();
+
+
+    await audioContext.resume();
+
+
+    const source =
+      audioContext
+      .createMediaStreamSource(stream);
+
+
+    const analyser =
+      audioContext
+      .createAnalyser();
+
+
+    analyser.fftSize = 512;
+
+    analyser.smoothingTimeConstant = .15;
+
+
+    source.connect(analyser);
+
+
+    const data =
+      new Uint8Array(
+        analyser.frequencyBinCount
+      );
+
+
+    setTimeout(function() {
+
+      if (hasBlown) {
+        return;
+      }
+
+
+      msg.textContent =
+        "เป่าเทียนได้เลย! ";
+
+
+      detectBlow(
+        analyser,
+        data,
+        stream,
+        audioContext
+      );
+
+    }, 1000);
+
+
+  } catch (error) {
+
+    console.error(
+      "Microphone error:",
+      error
+    );
+
+
+    detecting = false;
+
+
+    micBtn.style.display =
+      "inline-flex";
+
+
+    msg.textContent =
+      "เปิดไมโครโฟนไม่ได้ กรุณาอนุญาตการใช้งานไมโครโฟน";
+
+  }
+
+}
+
+
+/* =========================================================
+   DETECT BLOW
+========================================================= */
+
+function detectBlow(
+  analyser,
+  data,
+  stream,
+  audioContext
+) {
+
+  if (hasBlown) {
+    return;
+  }
+
+
+  analyser.getByteFrequencyData(data);
+
+
+  let total = 0;
+
+
+  for (
+    let i = 0;
+    i < data.length;
+    i++
+  ) {
+
+    total += data[i];
+
+  }
+
+
+  const volume =
+    total / data.length;
+
+
+  const BLOW_THRESHOLD = 45;
+
+
+  if (volume > BLOW_THRESHOLD) {
+
+    finishBlow(
+      stream,
+      audioContext
+    );
+
+    return;
+
+  }
+
+
+  requestAnimationFrame(function() {
+
+    detectBlow(
+      analyser,
+      data,
+      stream,
+      audioContext
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   FINISH BLOW
+========================================================= */
+
+function finishBlow(
+  stream,
+  audioContext
+) {
+
+  if (hasBlown) {
+    return;
+  }
+
+
+  hasBlown = true;
+
+  detecting = false;
+
+
+  /* =======================================================
+     ดับเทียน
+  ======================================================= */
+
+  flames.forEach(function(flame) {
+
+    flame.style.opacity = "0";
+
+    flame.style.animation = "none";
+
+  });
+
+
+  /* =======================================================
+     TITLE
+  ======================================================= */
+
+  titleText.textContent =
+    "";
+
+
+  /* =======================================================
+     HIDE STEP 2
+  ======================================================= */
+
+  step2.style.display = "none";
+
+
+  /* =======================================================
+     SHOW STEP 3
+     อยู่ตำแหน่งเดิมเหมือนรูปที่ 2
+  ======================================================= */
+
+  step3.style.display = "flex";
+
+
+  /* =======================================================
+     FIREWORK
+  ======================================================= */
+
+  pyro.style.display = "block";
+
+
+  /* =======================================================
+     STARS
+  ======================================================= */
+
+  spawnStars();
+
+
+  /* =======================================================
+     CLOSE MICROPHONE
+  ======================================================= */
+
+  if (stream) {
+
+    stream
+      .getTracks()
+      .forEach(function(track) {
+
+        track.stop();
+
+      });
+
+  }
+
+
+  if (
+    audioContext &&
+    audioContext.state !== "closed"
+  ) {
+
+    audioContext.close();
+
+  }
+
+}
+
+
+/* =========================================================
+   STARS
+========================================================= */
+
+function spawnStars() {
+
+  const STAR_COUNT = 100;
+
+  const vw =
+    window.innerWidth;
+
+
+  for (
+    let i = 0;
+    i < STAR_COUNT;
+    i++
+  ) {
+
+    const img =
+      document.createElement("img");
+
+
+    const starNum =
+      (i % 4) + 1;
+
+
+    img.src =
+      `star${starNum}.png`;
+
+
+    img.className =
+      "star-piece";
+
+
+    const size =
+      18 +
+      Math.random() * 25;
+
+
+    img.style.width =
+      size + "px";
+
+
+    img.style.left =
+      Math.random() * vw + "px";
+
+
+    img.style.setProperty(
+      "--drift1",
+      (
+        Math.random() * 240 - 120
+      ) + "px"
+    );
+
+
+    img.style.setProperty(
+      "--drift2",
+      (
+        Math.random() * 360 - 180
+      ) + "px"
+    );
+
+
+    img.style.setProperty(
+      "--drift3",
+      (
+        Math.random() * 480 - 240
+      ) + "px"
+    );
+
+
+    img.style.setProperty(
+      "--drift4",
+      (
+        Math.random() * 600 - 300
+      ) + "px"
+    );
+
+
+    const duration =
+      5 +
+      Math.random() * 7;
+
+
+    const delay =
+      Math.random() * 3;
+
+
+    img.style.animationDuration =
+      duration + "s";
+
+
+    img.style.animationDelay =
+      delay + "s";
+
+
+    starsLayer.appendChild(img);
+
+
+    setTimeout(function() {
+
+      img.remove();
+
+    }, (duration + delay) * 1000 + 1000);
+
+  }
+
+}

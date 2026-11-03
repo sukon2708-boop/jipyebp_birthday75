@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ต่อจิ๊กซอ</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="shell center">
+      <h1>ต่อจิ๊กซอ</h1>
+      <p class="subtle">คลิกชิ้นที่ 1 แล้วคลิกชิ้นที่ 2 เพื่อสลับตำแหน่ง</p>
+
+      <div class="canvas-wrap">
+        <canvas id="puzzle" width="600" height="600"></canvas>
+      </div>
+
+      <div style="margin-top:14px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+        <button class="btn" id="shuffleBtn">สับใหม่</button>
+        <button class="btn secondary" id="showHintBtn">ดูรูปเต็ม</button>
+        <a class="btn secondary" href="menu.html">ย้อนกลับ</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal center">
+      <h3>รูปเต็ม (ใบ้)</h3>
+      <img src="assets/puzzle.jpg" alt="hint" style="width:100%; border-radius:18px;" />
+      <div class="row">
+        <button class="btn" id="closeModalBtn">ปิด</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/jigsaw.js"></script>
+  
+</body>
+</html>
